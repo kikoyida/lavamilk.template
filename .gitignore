@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+*.log
+
+# PocketBase 运行时数据与二进制（二进制需按 README 下载）
+pocketbase/pocketbase
+pocketbase/pb_data
+pocketbase/pb_migrations
+pocketbase/pb_public
