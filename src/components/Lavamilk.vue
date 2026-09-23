@@ -31,14 +31,25 @@ const SMT_REPO_URL = "https://github.com/lavamilkTeam/LavamilkSMT";
 // 线上社群（QQ 群邀请链接）
 const COMMUNITY_URL = "https://qm.qq.com/q/fWFuAJosL0";
 
-const NAV = computed(() => [
-  { label: t("nav.product"), p: "features" },
-  { label: t("nav.docs"), p: "docs" },
-  { label: t("nav.pricing"), p: "pricing" },
-  { label: t("nav.changelog"), p: "changelog" },
-]);
+// 暂时隐藏的页面：代码、文案、CMS 数据全部保留，只是不显示入口。
+// 想重新放出，把对应项从这个数组里删掉即可。
+const HIDDEN_PAGES = ["pricing", "changelog"];
 
-const FOOT = computed(() => tm("footer.cols"));
+const NAV = computed(() =>
+  [
+    { label: t("nav.product"), p: "features" },
+    { label: t("nav.docs"), p: "docs" },
+    { label: t("nav.pricing"), p: "pricing" },
+    { label: t("nav.changelog"), p: "changelog" },
+  ].filter((n) => !HIDDEN_PAGES.includes(n.p))
+);
+
+const FOOT = computed(() =>
+  tm("footer.cols").map((col) => ({
+    ...col,
+    links: col.links.filter((l) => !HIDDEN_PAGES.includes(l.p)),
+  }))
+);
 const docGroups = computed(() => tm("docsGroups"));
 const aboutStats = computed(() => tm("aboutStats"));
 const posts = computed(() => tm("posts"));
