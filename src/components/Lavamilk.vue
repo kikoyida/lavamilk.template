@@ -25,6 +25,9 @@ const go = (p) => {
 const logos = ["Northwind", "Vela", "Cobalt", "Mainsail", "Brightline", "Orbit", "Tidewater"];
 const frameworks = ["Next.js", "Astro", "SvelteKit", "Remix", "Nuxt", "Vite"];
 
+// 顶部横幅指向的开源仓库
+const REPO_URL = "https://github.com/lavamilkTeam/lavamilk.template";
+
 const NAV = computed(() => [
   { label: t("nav.product"), p: "features" },
   { label: t("nav.docs"), p: "docs" },
@@ -51,11 +54,11 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
   <div class="min-h-screen bg-background font-sans text-foreground">
     <!-- HOME -->
     <template v-if="page === 'home'">
-      <a href="#" @click.prevent="go('changelog')" class="block cursor-pointer border-b border-border bg-muted/60 transition-colors hover:bg-muted">
+      <a :href="REPO_URL" target="_blank" rel="noopener noreferrer" class="block cursor-pointer border-b border-border bg-muted/60 transition-colors hover:bg-muted">
         <div class="mx-auto flex max-w-6xl items-center justify-center gap-2 px-6 py-2 text-center text-xs sm:text-sm">
           <span class="rounded-full bg-foreground px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-background">{{ t('banner.badge') }}</span>
           <span class="font-medium">{{ t('banner.text') }}</span>
-          <span class="font-semibold underline-offset-4 hover:underline">{{ t('action.readMore') }}</span>
+          <span class="font-semibold underline underline-offset-4">{{ t('action.readMore') }}</span>
         </div>
       </a>
 
