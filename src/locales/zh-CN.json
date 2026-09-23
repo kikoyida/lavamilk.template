@@ -1,0 +1,214 @@
+{
+  "nav": {
+    "product": "产品",
+    "docs": "文档",
+    "pricing": "定价",
+    "changelog": "更新日志"
+  },
+  "action": {
+    "signIn": "登录",
+    "startDeploying": "开始部署",
+    "readDocs": "阅读文档",
+    "readMore": "了解更多 →",
+    "viewPricing": "查看定价",
+    "deploy": "部署",
+    "readPost": "阅读文章",
+    "apply": "申请",
+    "backToBlog": "← 返回博客"
+  },
+  "lang": {
+    "label": "语言",
+    "en": "English",
+    "zh": "简体中文"
+  },
+  "banner": {
+    "badge": "新",
+    "text": "Lavamilk 边缘函数现已正式可用。"
+  },
+  "term": {
+    "building": "构建中...",
+    "doneIn": "12 秒完成",
+    "deployedTo": "已部署到",
+    "ago": "2 分钟前"
+  },
+  "home": {
+    "kicker": "为快速交付而生的平台",
+    "trustedBy": "深受高速成长团队的信赖",
+    "featuresKicker": "功能",
+    "featuresTitle": "交付所需，一应俱全。",
+    "featuresSubtitle": "从第一次提交到全球规模，基础设施交给 Lavamilk，你只管留在编辑器里。",
+    "stackKicker": "适配你的技术栈",
+    "stackTitle": "任意框架，零配置部署。",
+    "dashKicker": "控制台",
+    "dashTitle": "所有部署，尽在一处。",
+    "dashSubtitle": "查看构建、排查日志、一键回滚，一个不打扰你的控制台就够了。",
+    "quote": "我们用一个下午把整套技术栈迁到 Lavamilk，部署时间从几分钟缩短到几秒。它完全不碍事。",
+    "quoteName": "Avery Kim",
+    "quoteRole": "Brightline 高级工程师",
+    "ctaTitle": "几分钟内部署你的第一个项目。",
+    "ctaSubtitle": "连接代码仓库，构建、CDN 和扩容都由 Lavamilk 搞定。免费开始。"
+  },
+  "dash": {
+    "deployments": "部署",
+    "project": "acme / web",
+    "nav": ["概览", "部署", "分析", "日志", "设置"],
+    "metrics": [
+      { "k": "可用性", "v": "99.99%" },
+      { "k": "今日构建", "v": "34" },
+      { "k": "平均构建", "v": "11s" }
+    ],
+    "rows": [
+      { "b": "main", "s": "就绪", "d": true },
+      { "b": "feat/api", "s": "构建中", "d": false },
+      { "b": "fix/auth", "s": "就绪", "d": true }
+    ]
+  },
+  "page": {
+    "features": {
+      "kicker": "功能",
+      "title": "为快速交付而打造。",
+      "subtitle": "Lavamilk 的全部能力，都在这里。连接仓库，其余交给平台。"
+    },
+    "docs": {
+      "kicker": "文档",
+      "title": "文档",
+      "subtitle": "从零到上线的指南与参考。",
+      "quickstartTitle": "快速开始",
+      "intro": "Lavamilk 可零配置部署任意前端框架或静态站点。安装 CLI，指向你的项目，执行一条命令即可。",
+      "terminal": "终端",
+      "whatNextTitle": "接下来会发生什么",
+      "whatNextBody": "Lavamilk 会自动识别框架、安装依赖、构建项目，并从边缘节点提供服务。每次推送到默认分支都会部署到生产环境；每个拉取请求都会获得一个预览地址。",
+      "nextStepsTitle": "下一步",
+      "nextStepsBody": "在控制台或 CLI 中绑定自定义域名、按环境配置环境变量，并接入可观测性。"
+    },
+    "pricing": {
+      "kicker": "定价",
+      "title": "免费开始，随业务扩展。",
+      "subtitle": "简单透明的定价。没有意外，随时取消。",
+      "popular": "最受欢迎",
+      "perMonth": "/ 月",
+      "faqTitle": "常见问题"
+    },
+    "changelog": {
+      "kicker": "更新日志",
+      "title": "Lavamilk 新功能",
+      "subtitle": "我们交付的每一项改进，都在这里。"
+    },
+    "about": {
+      "kicker": "关于我们",
+      "title": "我们在打造最快的交付方式。",
+      "subtitle": "Lavamilk 是一支全远程的小团队，痴迷于开发者体验。",
+      "body1": "Lavamilk 源于一个朴素的痛点：部署软件比写软件更慢、更复杂。我们想让它变得稀松平常，让团队能把时间花在创造上。",
+      "body2": "如今每天有成千上万的团队在 Lavamilk 上部署。我们是一支在意手艺与速度、并致力于让基础设施「消失」的小团队。"
+    },
+    "blog": {
+      "kicker": "博客",
+      "title": "Lavamilk 博客",
+      "subtitle": "产品动态、工程深度解析与实践指南。"
+    },
+    "post": {
+      "metaTag": "工程",
+      "metaRead": "阅读 6 分钟",
+      "title": "我们如何把冷启动降到零",
+      "body1": "冷启动一直是 Serverless 的隐性成本。当一个函数久未运行，平台就得重新拉起实例，而用户只能等待。我们认为这种代价不可接受。",
+      "h2a": "我们的做法",
+      "body2": "Lavamilk 不再为每个请求启动全新的运行时，而是在每个边缘节点维持一个热隔离池，把请求路由到最近的可用实例。结果是启动耗时降到亚毫秒级，即使面对突发流量也一样。",
+      "h2b": "对你意味着什么",
+      "body3": "你部署的还是同一份代码，无需任何配置。你的函数只是变得更快了——在所有地方、所有时间。"
+    },
+    "careers": {
+      "kicker": "招聘",
+      "title": "打造开发者热爱的平台。",
+      "subtitle": "我们是一支全远程的小团队，来一起让交付变得毫不费力。"
+    },
+    "contact": {
+      "kicker": "联系我们",
+      "title": "与我们联系",
+      "subtitle": "对 Lavamilk 有疑问？我们很乐意听到你的声音。"
+    },
+    "legal": {
+      "kicker": "法律",
+      "updated": "最后更新于 2026 年 6 月。",
+      "intro": "这里是 Lavamilk {doc}的占位文案。上线前请替换为你自己的法律条款。",
+      "overviewTitle": "概述",
+      "overviewBody": "使用 Lavamilk 即表示你同意本页所述条款。我们希望这份文档清晰、不含多余的术语。",
+      "dataTitle": "你的数据",
+      "dataBody": "我们只处理运营服务所必需的数据，绝不出售，并存储在你选择的区域。你可以随时导出或删除。",
+      "contactTitle": "联系方式",
+      "contactBody": "对本政策有疑问？请联系 legal{'@'}lavamilk.example。"
+    }
+  },
+  "docsGroups": [
+    { "h": "开始使用", "items": ["快速开始", "连接仓库", "首次部署"] },
+    { "h": "指南", "items": ["环境变量", "自定义域名", "边缘函数"] },
+    { "h": "参考", "items": ["CLI", "REST API", "构建设置"] }
+  ],
+  "aboutStats": [
+    { "n": "2022", "l": "成立" },
+    { "n": "14k+", "l": "团队" },
+    { "n": "18", "l": "边缘节点" },
+    { "n": "100%", "l": "远程" }
+  ],
+  "posts": [
+    { "title": "我们如何把冷启动降到零", "tag": "工程", "read": "6 分钟" },
+    { "title": "在 Lavamilk 上部署 monorepo", "tag": "指南", "read": "8 分钟" },
+    { "title": "边缘渲染对你的应用意味着什么", "tag": "产品", "read": "5 分钟" }
+  ],
+  "roles": [
+    { "t": "高级平台工程师", "team": "基础设施", "loc": "远程" },
+    { "t": "开发者关系布道师", "team": "开发者关系", "loc": "远程" },
+    { "t": "产品设计师", "team": "设计", "loc": "远程" },
+    { "t": "支持工程师", "team": "客户成功", "loc": "远程" }
+  ],
+  "contacts": [
+    { "h": "销售", "d": "与企业版相关的咨询，请联系我们。", "v": "sales{'@'}lavamilk.example" },
+    { "h": "支持", "d": "获取账号相关的帮助。", "v": "support{'@'}lavamilk.example" },
+    { "h": "媒体", "d": "媒体与商务合作咨询。", "v": "press{'@'}lavamilk.example" }
+  ],
+  "legalTitles": {
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "security": "安全"
+  },
+  "footer": {
+    "status": "所有系统运行正常",
+    "copyright": "© {year} {name}, Inc.",
+    "cols": [
+      { "h": "产品", "links": [{ "label": "功能", "p": "features" }, { "label": "定价", "p": "pricing" }, { "label": "文档", "p": "docs" }, { "label": "更新日志", "p": "changelog" }] },
+      { "h": "公司", "links": [{ "label": "关于", "p": "about" }, { "label": "博客", "p": "blog" }, { "label": "招聘", "p": "careers" }, { "label": "联系", "p": "contact" }] },
+      { "h": "法律", "links": [{ "label": "隐私", "p": "privacy" }, { "label": "条款", "p": "terms" }, { "label": "安全", "p": "security" }] }
+    ]
+  },
+  "content": {
+    "site": {
+      "name": "Lavamilk",
+      "heroTitle": "你只管写代码，其余交给我们。",
+      "heroSubtitle": "Lavamilk 是一个开发者平台，在全球边缘网络上构建、部署并扩展你的应用。连接代码仓库，不到一分钟即可上线。",
+      "footerBlurb": "在边缘网络上构建、部署与扩展应用的开发者平台。"
+    },
+    "features": [
+      { "t": "极速部署", "d": "推送到分支，几秒内上线。无需盯守流水线。" },
+      { "t": "全球边缘网络", "d": "自动从最近的区域响应每个请求，零配置。" },
+      { "t": "预览环境", "d": "每个拉取请求都有独立的线上地址，合并前即可评审。" },
+      { "t": "内置可观测性", "d": "每次部署都有日志、链路和指标，无需安装任何探针。" },
+      { "t": "一键回滚", "d": "出问题了？一键回滚到任意历史部署。" },
+      { "t": "密钥与环境变量", "d": "加密的环境变量，可按环境和分支隔离。" }
+    ],
+    "tiers": [
+      { "n": "Hobby", "p": "$0", "d": "适合个人项目与试验。", "f": ["1 个并发构建", "100 GB 流量", "预览部署", "社区支持"], "cta": "免费开始", "hi": false },
+      { "n": "Pro", "p": "$20", "d": "适合专业开发者与团队。", "f": ["包含 Hobby 全部功能", "不限构建次数", "1 TB 流量", "可观测性与日志", "邮件支持"], "cta": "开始免费试用", "hi": true },
+      { "n": "Enterprise", "p": "定制", "d": "适合规模化组织。", "f": ["包含 Pro 全部功能", "SSO 与 SAML", "审计日志与 SLA", "专属支持"], "cta": "联系销售", "hi": false }
+    ],
+    "faqs": [
+      { "q": "有免费套餐吗？", "a": "有。Hobby 套餐永久免费，包含预览部署和 100 GB 流量。" },
+      { "q": "之后可以更换套餐吗？", "a": "当然可以。随时升级或降级，费用会自动按比例折算。" },
+      { "q": "有折扣吗？", "a": "我们为初创公司和开源项目提供折扣，欢迎联系我们的团队。" }
+    ],
+    "changelog": [
+      { "date": "2026 年 6 月 4 日", "title": "边缘函数正式可用", "body": "在 18 个区域以零冷启动运行代码，现已对所有套餐开放。" },
+      { "date": "2026 年 5 月 21 日", "title": "远程缓存加速构建", "body": "共享构建缓存让平台整体构建耗时中位数下降 40%。" },
+      { "date": "2026 年 5 月 7 日", "title": "企业版审计日志", "body": "工作区内的每个操作都会被记录，并可导出用于合规审计。" },
+      { "date": "2026 年 4 月 23 日", "title": "一键回滚", "body": "在控制台或 CLI 中把任意历史部署重新提升到生产环境。" }
+    ]
+  }
+}

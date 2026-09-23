@@ -1,0 +1,214 @@
+{
+  "nav": {
+    "product": "Product",
+    "docs": "Docs",
+    "pricing": "Pricing",
+    "changelog": "Changelog"
+  },
+  "action": {
+    "signIn": "Sign in",
+    "startDeploying": "Start deploying",
+    "readDocs": "Read the docs",
+    "readMore": "Read more →",
+    "viewPricing": "View pricing",
+    "deploy": "Deploy",
+    "readPost": "Read post",
+    "apply": "Apply",
+    "backToBlog": "← Back to blog"
+  },
+  "lang": {
+    "label": "Language",
+    "en": "English",
+    "zh": "简体中文"
+  },
+  "banner": {
+    "badge": "New",
+    "text": "Lavamilk Edge Functions are now generally available."
+  },
+  "term": {
+    "building": "Building...",
+    "doneIn": "done in 12s",
+    "deployedTo": "Deployed to",
+    "ago": "2m ago"
+  },
+  "home": {
+    "kicker": "The platform for shipping fast",
+    "trustedBy": "Trusted by teams at fast-moving companies",
+    "featuresKicker": "Features",
+    "featuresTitle": "Everything you need to ship.",
+    "featuresSubtitle": "From the first commit to global scale, Lavamilk handles the infrastructure so you can stay in your editor.",
+    "stackKicker": "Works with your stack",
+    "stackTitle": "Deploy any framework. Zero config.",
+    "dashKicker": "The dashboard",
+    "dashTitle": "Every deploy, in one place.",
+    "dashSubtitle": "Watch builds, inspect logs, and roll back, all from a dashboard that stays out of your way.",
+    "quote": "We moved our whole stack to Lavamilk in an afternoon and cut our deploy times from minutes to seconds. It just gets out of the way.",
+    "quoteName": "Avery Kim",
+    "quoteRole": "Staff Engineer, Brightline",
+    "ctaTitle": "Deploy your first project in minutes.",
+    "ctaSubtitle": "Connect a repository and Lavamilk takes care of the build, the CDN, and the scaling. Free to start."
+  },
+  "dash": {
+    "deployments": "Deployments",
+    "project": "acme / web",
+    "nav": ["Overview", "Deployments", "Analytics", "Logs", "Settings"],
+    "metrics": [
+      { "k": "Uptime", "v": "99.99%" },
+      { "k": "Builds today", "v": "34" },
+      { "k": "Avg build", "v": "11s" }
+    ],
+    "rows": [
+      { "b": "main", "s": "Ready", "d": true },
+      { "b": "feat/api", "s": "Building", "d": false },
+      { "b": "fix/auth", "s": "Ready", "d": true }
+    ]
+  },
+  "page": {
+    "features": {
+      "kicker": "Features",
+      "title": "Built for shipping fast.",
+      "subtitle": "Everything Lavamilk does, in one place. Connect a repo and the platform handles the rest."
+    },
+    "docs": {
+      "kicker": "Documentation",
+      "title": "Docs",
+      "subtitle": "Guides and references to get you from zero to production.",
+      "quickstartTitle": "Quickstart",
+      "intro": "Lavamilk deploys any frontend framework or static site with zero configuration. Install the CLI, point it at your project, and run a single command.",
+      "terminal": "terminal",
+      "whatNextTitle": "What happens next",
+      "whatNextBody": "Lavamilk detects your framework, installs dependencies, builds the project, and serves it from the edge. Every push to your default branch deploys to production; every pull request gets a preview URL.",
+      "nextStepsTitle": "Next steps",
+      "nextStepsBody": "Add a custom domain, configure environment variables per environment, and wire up observability, all from the dashboard or the CLI."
+    },
+    "pricing": {
+      "kicker": "Pricing",
+      "title": "Start free. Scale when you do.",
+      "subtitle": "Simple, predictable pricing. No surprises, cancel anytime.",
+      "popular": "Popular",
+      "perMonth": "/ mo",
+      "faqTitle": "Frequently asked questions"
+    },
+    "changelog": {
+      "kicker": "Changelog",
+      "title": "What's new in Lavamilk",
+      "subtitle": "Every improvement we ship, in one place."
+    },
+    "about": {
+      "kicker": "About us",
+      "title": "We are building the fastest way to ship.",
+      "subtitle": "Lavamilk is a small, fully remote team obsessed with developer experience.",
+      "body1": "Lavamilk started with a simple frustration: deploying software was slower and more complicated than writing it. We set out to make shipping a non-event, so teams could spend their time building.",
+      "body2": "Today thousands of teams deploy to Lavamilk every day. We are a small crew that cares about craft, speed, and making infrastructure disappear."
+    },
+    "blog": {
+      "kicker": "Blog",
+      "title": "The Lavamilk blog",
+      "subtitle": "Product updates, engineering deep-dives, and guides."
+    },
+    "post": {
+      "metaTag": "Engineering",
+      "metaRead": "6 min read",
+      "title": "How we cut cold starts to zero",
+      "body1": "Cold starts have long been the tax you pay for serverless. When a function hasn't run recently, the platform has to spin up a new instance, and your user waits. We decided that tax was unacceptable.",
+      "h2a": "The approach",
+      "body2": "Instead of booting a fresh runtime per request, Lavamilk keeps a pool of warm isolates at every edge location and routes incoming requests to the nearest available one. The result is a sub-millisecond startup, even for traffic that arrives in bursts.",
+      "h2b": "What it means for you",
+      "body3": "You deploy the same code you always have. There is nothing to configure. Your functions simply run faster, everywhere, all the time."
+    },
+    "careers": {
+      "kicker": "Careers",
+      "title": "Build the platform developers love.",
+      "subtitle": "We are a small, fully remote team. Come help us make shipping effortless."
+    },
+    "contact": {
+      "kicker": "Contact",
+      "title": "Get in touch",
+      "subtitle": "Questions about Lavamilk? We would love to hear from you."
+    },
+    "legal": {
+      "kicker": "Legal",
+      "updated": "Last updated June 2026.",
+      "intro": "This is placeholder copy for the {doc} of Lavamilk. Replace it with your own legal text before launch.",
+      "overviewTitle": "Overview",
+      "overviewBody": "By using Lavamilk, you agree to the terms described on this page. We aim to keep this document clear and free of unnecessary jargon.",
+      "dataTitle": "Your data",
+      "dataBody": "We process only the data needed to operate the service, never sell it, and store it in the region you choose. You can export or delete it at any time.",
+      "contactTitle": "Contact",
+      "contactBody": "Questions about this policy? Reach our team at legal{'@'}lavamilk.example."
+    }
+  },
+  "docsGroups": [
+    { "h": "Getting started", "items": ["Quickstart", "Connect a repo", "Your first deploy"] },
+    { "h": "Guides", "items": ["Environment variables", "Custom domains", "Edge functions"] },
+    { "h": "Reference", "items": ["CLI", "REST API", "Build settings"] }
+  ],
+  "aboutStats": [
+    { "n": "2022", "l": "Founded" },
+    { "n": "14k+", "l": "Teams" },
+    { "n": "18", "l": "Edge regions" },
+    { "n": "100%", "l": "Remote" }
+  ],
+  "posts": [
+    { "title": "How we cut cold starts to zero", "tag": "Engineering", "read": "6 min" },
+    { "title": "Deploying a monorepo on Lavamilk", "tag": "Guides", "read": "8 min" },
+    { "title": "What edge rendering means for your app", "tag": "Product", "read": "5 min" }
+  ],
+  "roles": [
+    { "t": "Senior Platform Engineer", "team": "Infrastructure", "loc": "Remote" },
+    { "t": "Developer Advocate", "team": "Developer Relations", "loc": "Remote" },
+    { "t": "Product Designer", "team": "Design", "loc": "Remote" },
+    { "t": "Support Engineer", "team": "Customer Success", "loc": "Remote" }
+  ],
+  "contacts": [
+    { "h": "Sales", "d": "Talk to our team about Enterprise.", "v": "sales{'@'}lavamilk.example" },
+    { "h": "Support", "d": "Get help with your account.", "v": "support{'@'}lavamilk.example" },
+    { "h": "Press", "d": "Media and partnership inquiries.", "v": "press{'@'}lavamilk.example" }
+  ],
+  "legalTitles": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "security": "Security"
+  },
+  "footer": {
+    "status": "All systems operational",
+    "copyright": "© {year} {name}, Inc.",
+    "cols": [
+      { "h": "Product", "links": [{ "label": "Features", "p": "features" }, { "label": "Pricing", "p": "pricing" }, { "label": "Docs", "p": "docs" }, { "label": "Changelog", "p": "changelog" }] },
+      { "h": "Company", "links": [{ "label": "About", "p": "about" }, { "label": "Blog", "p": "blog" }, { "label": "Careers", "p": "careers" }, { "label": "Contact", "p": "contact" }] },
+      { "h": "Legal", "links": [{ "label": "Privacy", "p": "privacy" }, { "label": "Terms", "p": "terms" }, { "label": "Security", "p": "security" }] }
+    ]
+  },
+  "content": {
+    "site": {
+      "name": "Lavamilk",
+      "heroTitle": "Ship your code. We handle the rest.",
+      "heroSubtitle": "Lavamilk is the developer platform that builds, deploys, and scales your apps on a global edge network. Connect a repo and go live in under a minute.",
+      "footerBlurb": "The developer platform to build, deploy, and scale your apps on the edge."
+    },
+    "features": [
+      { "t": "Instant deploys", "d": "Push to your branch and ship to production in seconds. No pipelines to babysit." },
+      { "t": "Global edge network", "d": "Serve every request from the closest region, automatically, with zero config." },
+      { "t": "Preview environments", "d": "Every pull request gets its own live URL to review before you merge." },
+      { "t": "Built-in observability", "d": "Logs, traces, and metrics for every deploy, with no agents to install." },
+      { "t": "Instant rollbacks", "d": "Something broke? Roll back to any previous deploy in one click." },
+      { "t": "Secrets and env vars", "d": "Encrypted environment variables, scoped per environment and per branch." }
+    ],
+    "tiers": [
+      { "n": "Hobby", "p": "$0", "d": "For personal projects and experiments.", "f": ["1 concurrent build", "100 GB bandwidth", "Preview deployments", "Community support"], "cta": "Start free", "hi": false },
+      { "n": "Pro", "p": "$20", "d": "For professional developers and teams.", "f": ["Everything in Hobby", "Unlimited builds", "1 TB bandwidth", "Observability + logs", "Email support"], "cta": "Start free trial", "hi": true },
+      { "n": "Enterprise", "p": "Custom", "d": "For organizations at scale.", "f": ["Everything in Pro", "SSO and SAML", "Audit logs and SLA", "Dedicated support"], "cta": "Contact sales", "hi": false }
+    ],
+    "faqs": [
+      { "q": "Is there a free plan?", "a": "Yes. The Hobby plan is free forever and includes preview deployments and 100 GB of bandwidth." },
+      { "q": "Can I change plans later?", "a": "Absolutely. Upgrade or downgrade at any time; changes are prorated automatically." },
+      { "q": "Do you offer discounts?", "a": "We offer discounts for startups and open-source projects. Reach out to our team." }
+    ],
+    "changelog": [
+      { "date": "Jun 4, 2026", "title": "Edge Functions are now generally available", "body": "Run code at the edge in 18 regions with zero cold starts. Available on every plan today." },
+      { "date": "May 21, 2026", "title": "Faster builds with remote caching", "body": "Shared build caches cut median build times by 40% across the platform." },
+      { "date": "May 7, 2026", "title": "Audit logs for Enterprise", "body": "Every action in your workspace is now recorded and exportable for compliance." },
+      { "date": "Apr 23, 2026", "title": "One-click rollbacks", "body": "Promote any previous deploy back to production from the dashboard or the CLI." }
+    ]
+  }
+}

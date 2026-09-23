@@ -1,5 +1,11 @@
 // PocketBase 初始化：登录 → 建集合 → 灌入种子内容。可重复执行（幂等）。
-import defaults from '../src/content/site.js'
+// 种子数据取自英文语言包 src/locales/en.json 的 content 字段
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve } from 'node:path'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const defaults = JSON.parse(readFileSync(resolve(__dirname, '../src/locales/en.json'), 'utf8')).content
 
 const BASE = 'http://127.0.0.1:8090/api'
 const EMAIL = process.env.PB_ADMIN_EMAIL || 'admin@example.com'

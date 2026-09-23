@@ -1,11 +1,15 @@
 <script setup>
-// Lavamilk - a SaaS landing page template by SaaS Design. MIT licensed.
-import { ref } from "vue";
+// Lavamilk — 官网单文件组件（基于 SaaS Design 的模板改造，MIT licensed）
+import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useSiteContent } from "../composables/useSiteContent";
+import LanguageSwitcher from "./LanguageSwitcher.vue";
 
 const props = defineProps({ onSignIn: Function, onSignUp: Function });
 
-// 站点内容：优先读 CMS（PocketBase），连不上则回退本地默认值
+const { t, tm } = useI18n();
+
+// 站点内容：英文读 CMS（后台可编辑），其它语言读语言包
 const { site, features, tiers, faqs, changelog } = useSiteContent();
 
 const page = ref("home");
@@ -19,54 +23,28 @@ const go = (p) => {
 };
 
 const logos = ["Northwind", "Vela", "Cobalt", "Mainsail", "Brightline", "Orbit", "Tidewater"];
-
-const posts = [
-  { title: "How we cut cold starts to zero", tag: "Engineering", read: "6 min" },
-  { title: "Deploying a monorepo on Lavamilk", tag: "Guides", read: "8 min" },
-  { title: "What edge rendering means for your app", tag: "Product", read: "5 min" },
-];
-
-const roles = [
-  { t: "Senior Platform Engineer", team: "Infrastructure", loc: "Remote" },
-  { t: "Developer Advocate", team: "Developer Relations", loc: "Remote" },
-  { t: "Product Designer", team: "Design", loc: "Remote" },
-  { t: "Support Engineer", team: "Customer Success", loc: "Remote" },
-];
-
-const NAV = [
-  { label: "Product", p: "features" },
-  { label: "Docs", p: "docs" },
-  { label: "Pricing", p: "pricing" },
-  { label: "Changelog", p: "changelog" },
-];
-
-const FOOT = [
-  { h: "Product", links: [{ label: "Features", p: "features" }, { label: "Pricing", p: "pricing" }, { label: "Docs", p: "docs" }, { label: "Changelog", p: "changelog" }] },
-  { h: "Company", links: [{ label: "About", p: "about" }, { label: "Blog", p: "blog" }, { label: "Careers", p: "careers" }, { label: "Contact", p: "contact" }] },
-  { h: "Legal", links: [{ label: "Privacy", p: "privacy" }, { label: "Terms", p: "terms" }, { label: "Security", p: "security" }] },
-];
-
-const docGroups = [
-  { h: "Getting started", items: ["Quickstart", "Connect a repo", "Your first deploy"] },
-  { h: "Guides", items: ["Environment variables", "Custom domains", "Edge functions"] },
-  { h: "Reference", items: ["CLI", "REST API", "Build settings"] },
-];
-
-const aboutStats = [{ n: "2022", l: "Founded" }, { n: "14k+", l: "Teams" }, { n: "18", l: "Edge regions" }, { n: "100%", l: "Remote" }];
-
-const contacts = [
-  { h: "Sales", d: "Talk to our team about Enterprise.", v: "sales@lavamilk.example" },
-  { h: "Support", d: "Get help with your account.", v: "support@lavamilk.example" },
-  { h: "Press", d: "Media and partnership inquiries.", v: "press@lavamilk.example" },
-];
-
-const dashNav = ["Overview", "Deployments", "Analytics", "Logs", "Settings"];
-const dashMetrics = [{ k: "Uptime", v: "99.99%" }, { k: "Builds today", v: "34" }, { k: "Avg build", v: "11s" }];
-const dashRows = [{ b: "main", s: "Ready", d: true }, { b: "feat/api", s: "Building", d: false }, { b: "fix/auth", s: "Ready", d: true }];
-
 const frameworks = ["Next.js", "Astro", "SvelteKit", "Remix", "Nuxt", "Vite"];
 
-const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", security: "Security" };
+const NAV = computed(() => [
+  { label: t("nav.product"), p: "features" },
+  { label: t("nav.docs"), p: "docs" },
+  { label: t("nav.pricing"), p: "pricing" },
+  { label: t("nav.changelog"), p: "changelog" },
+]);
+
+const FOOT = computed(() => tm("footer.cols"));
+const docGroups = computed(() => tm("docsGroups"));
+const aboutStats = computed(() => tm("aboutStats"));
+const posts = computed(() => tm("posts"));
+const roles = computed(() => tm("roles"));
+const contacts = computed(() => tm("contacts"));
+const dashNav = computed(() => tm("dash.nav"));
+const dashMetrics = computed(() => tm("dash.metrics"));
+const dashRows = computed(() => tm("dash.rows"));
+
+const legalTitle = (p) => t("legalTitles." + p);
+// 价格以 $ 开头才显示周期（"定制"/"Custom" 不显示）
+const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
 </script>
 
 <template>
@@ -75,9 +53,9 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
     <template v-if="page === 'home'">
       <a href="#" @click.prevent="go('changelog')" class="block cursor-pointer border-b border-border bg-muted/60 transition-colors hover:bg-muted">
         <div class="mx-auto flex max-w-6xl items-center justify-center gap-2 px-6 py-2 text-center text-xs sm:text-sm">
-          <span class="rounded-full bg-foreground px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-background">New</span>
-          <span class="font-medium">Lavamilk Edge Functions are now generally available.</span>
-          <span class="font-semibold underline-offset-4 hover:underline">Read more &rarr;</span>
+          <span class="rounded-full bg-foreground px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-background">{{ t('banner.badge') }}</span>
+          <span class="font-medium">{{ t('banner.text') }}</span>
+          <span class="font-semibold underline-offset-4 hover:underline">{{ t('action.readMore') }}</span>
         </div>
       </a>
 
@@ -88,31 +66,33 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
               <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-[38px] w-auto" />
             </a>
-            <nav class="hidden items-center gap-6 md:flex">
+            <nav class="hidden items-center gap-6 lg:flex">
               <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" :class="'cursor-pointer text-[13px] transition-colors hover:text-foreground ' + (page === n.p ? 'text-foreground' : 'text-muted-foreground')">{{ n.label }}</a>
             </nav>
           </div>
           <div class="flex items-center gap-2">
-            <button type="button" @click="onSignIn && onSignIn()" class="hidden cursor-pointer rounded-md px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground sm:inline-block">Sign in</button>
-            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">Start deploying</button>
-            <button class="-mr-1 rounded-md p-2 text-muted-foreground hover:bg-muted md:hidden" @click="open = !open" aria-label="Menu">
+            <LanguageSwitcher class="hidden sm:block" />
+            <button type="button" @click="onSignIn && onSignIn()" class="hidden cursor-pointer rounded-md px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground sm:inline-block">{{ t('action.signIn') }}</button>
+            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</button>
+            <button class="-mr-1 rounded-md p-2 text-muted-foreground hover:bg-muted lg:hidden" @click="open = !open" aria-label="Menu">
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path v-if="open" d="M18 6 6 18M6 6l12 12" /><path v-else d="M3 6h18M3 12h18M3 18h18" /></svg>
             </button>
           </div>
         </div>
-        <nav v-if="open" class="space-y-1 border-t border-border px-6 py-3 md:hidden">
+        <nav v-if="open" class="space-y-1 border-t border-border px-6 py-3 lg:hidden">
           <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" class="block cursor-pointer rounded-md px-2 py-2 text-sm text-muted-foreground hover:bg-muted">{{ n.label }}</a>
+          <div class="pt-1"><LanguageSwitcher /></div>
         </nav>
       </header>
 
       <main class="mx-auto max-w-6xl border-x border-border">
         <section class="border-b border-border px-6 pb-16 pt-16 text-center sm:px-16 sm:pt-24 lg:px-28">
-          <span class="df-rise inline-block"><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">The platform for shipping fast</span></span>
+          <span class="df-rise inline-block"><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('home.kicker') }}</span></span>
           <h1 class="df-rise mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.03em] sm:text-6xl">{{ site.heroTitle }}</h1>
           <p class="df-rise-2 mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ site.heroSubtitle }}</p>
           <div class="df-rise-2 mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90">Start deploying <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
-            <a href="#" @click.prevent="go('docs')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:bg-muted">Read the docs</a>
+            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }} <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            <a href="#" @click.prevent="go('docs')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:bg-muted">{{ t('action.readDocs') }}</a>
           </div>
           <div class="df-rise-2 mx-auto mt-10 max-w-md overflow-hidden rounded-lg border border-border bg-card text-left shadow-sm">
             <div class="flex items-center gap-1.5 border-b border-border bg-muted px-3.5 py-2">
@@ -121,14 +101,14 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
             </div>
             <div class="px-4 py-3.5 font-mono text-[12.5px] leading-relaxed">
               <p><span class="text-muted-foreground">$</span> lavamilk deploy</p>
-              <p class="mt-1 text-muted-foreground">Building... <span class="text-foreground">done in 12s</span></p>
-              <p class="text-muted-foreground">Deployed to <span class="text-foreground underline underline-offset-2">lavamilk.app/acme</span></p>
+              <p class="mt-1 text-muted-foreground">{{ t('term.building') }} <span class="text-foreground">{{ t('term.doneIn') }}</span></p>
+              <p class="text-muted-foreground">{{ t('term.deployedTo') }} <span class="text-foreground underline underline-offset-2">lavamilk.app/acme</span></p>
             </div>
           </div>
         </section>
 
         <section class="border-b border-border px-6 py-9">
-          <p class="text-center font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Trusted by teams at fast-moving companies</p>
+          <p class="text-center font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{{ t('home.trustedBy') }}</p>
           <div class="relative mt-6 overflow-hidden" :style="{ maskImage: 'linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)', WebkitMaskImage: 'linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)' }">
             <div class="df-marquee flex w-max items-center gap-x-14 opacity-55"><span v-for="(n, i) in [...logos, ...logos]" :key="i" class="shrink-0 text-base font-bold tracking-tight">{{ n }}</span></div>
           </div>
@@ -136,9 +116,9 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
 
         <section class="border-b border-border px-6 py-16 sm:px-16 lg:px-28">
           <div class="max-w-2xl">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Features</span>
-            <h2 class="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">Everything you need to ship.</h2>
-            <p class="mt-3 text-muted-foreground">From the first commit to global scale, Lavamilk handles the infrastructure so you can stay in your editor.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('home.featuresKicker') }}</span>
+            <h2 class="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{{ t('home.featuresTitle') }}</h2>
+            <p class="mt-3 text-muted-foreground">{{ t('home.featuresSubtitle') }}</p>
           </div>
           <div class="mt-9 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             <div v-for="f in features" :key="f.t" class="flex flex-col bg-card p-6">
@@ -151,13 +131,13 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
 
         <section class="border-b border-border px-6 py-12 sm:px-16 lg:px-28">
           <div class="flex flex-col items-center justify-between gap-5 sm:flex-row">
-            <div><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Works with your stack</span><h2 class="mt-3 text-2xl font-bold tracking-[-0.02em]">Deploy any framework. Zero config.</h2></div>
+            <div><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('home.stackKicker') }}</span><h2 class="mt-3 text-2xl font-bold tracking-[-0.02em]">{{ t('home.stackTitle') }}</h2></div>
             <div class="flex flex-wrap items-center gap-2"><span v-for="f in frameworks" :key="f" class="rounded-md border border-border bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground">{{ f }}</span></div>
           </div>
         </section>
 
         <section class="border-b border-border px-6 py-16 sm:px-16 lg:px-28">
-          <div class="mx-auto max-w-2xl text-center"><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">The dashboard</span><h2 class="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">Every deploy, in one place.</h2><p class="mt-3 text-muted-foreground">Watch builds, inspect logs, and roll back, all from a dashboard that stays out of your way.</p></div>
+          <div class="mx-auto max-w-2xl text-center"><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('home.dashKicker') }}</span><h2 class="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{{ t('home.dashTitle') }}</h2><p class="mt-3 text-muted-foreground">{{ t('home.dashSubtitle') }}</p></div>
           <div class="mx-auto mt-9 max-w-4xl overflow-hidden rounded-xl border border-border bg-card shadow-sm">
             <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr]">
               <aside class="hidden flex-col gap-1 border-r border-border p-3 text-left sm:flex">
@@ -165,23 +145,23 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
                 <span v-for="(s, i) in dashNav" :key="s" :class="'flex items-center gap-2 rounded-md px-2.5 py-1.5 text-xs ' + (i === 1 ? 'bg-muted font-semibold text-foreground' : 'text-muted-foreground')"><span class="h-1.5 w-1.5 rounded-sm bg-muted-foreground/50" /> {{ s }}</span>
               </aside>
               <div class="p-4 text-left">
-                <div class="flex items-center justify-between"><div><p class="text-sm font-bold tracking-tight">Deployments</p><p class="text-[11px] text-muted-foreground">acme / web</p></div><span class="rounded-md bg-foreground px-3 py-1.5 text-[11px] font-semibold text-background">Deploy</span></div>
+                <div class="flex items-center justify-between"><div><p class="text-sm font-bold tracking-tight">{{ t('dash.deployments') }}</p><p class="text-[11px] text-muted-foreground">{{ t('dash.project') }}</p></div><span class="rounded-md bg-foreground px-3 py-1.5 text-[11px] font-semibold text-background">{{ t('action.deploy') }}</span></div>
                 <div class="mt-3 grid grid-cols-3 gap-2.5"><div v-for="m in dashMetrics" :key="m.k" class="rounded-lg border border-border p-3"><p class="text-[10px] text-muted-foreground">{{ m.k }}</p><p class="mt-1 text-base font-bold tracking-tight">{{ m.v }}</p></div></div>
-                <div class="mt-2.5 space-y-1.5"><div v-for="r in dashRows" :key="r.b" class="flex items-center gap-2.5 rounded-lg border border-border px-3 py-2"><span :class="'h-2 w-2 rounded-full ' + (r.d ? 'bg-foreground' : 'bg-muted-foreground/40')" /><span class="flex-1 font-mono text-[11px]">{{ r.b }}</span><span class="rounded-full bg-muted px-2 py-0.5 text-[9px] font-semibold text-muted-foreground">{{ r.s }}</span><span class="font-mono text-[10px] text-muted-foreground">2m ago</span></div></div>
+                <div class="mt-2.5 space-y-1.5"><div v-for="r in dashRows" :key="r.b" class="flex items-center gap-2.5 rounded-lg border border-border px-3 py-2"><span :class="'h-2 w-2 rounded-full ' + (r.d ? 'bg-foreground' : 'bg-muted-foreground/40')" /><span class="flex-1 font-mono text-[11px]">{{ r.b }}</span><span class="rounded-full bg-muted px-2 py-0.5 text-[9px] font-semibold text-muted-foreground">{{ r.s }}</span><span class="font-mono text-[10px] text-muted-foreground">{{ t('term.ago') }}</span></div></div>
               </div>
             </div>
           </div>
         </section>
 
         <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-          <blockquote class="mx-auto max-w-3xl text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl">"We moved our whole stack to Lavamilk in an afternoon and cut our deploy times from minutes to seconds. It just gets out of the way."</blockquote>
-          <div class="mt-6 flex items-center justify-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold">AK</span><div class="text-left"><p class="text-sm font-semibold">Avery Kim</p><p class="text-xs text-muted-foreground">Staff Engineer, Brightline</p></div></div>
+          <blockquote class="mx-auto max-w-3xl text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl">&ldquo;{{ t('home.quote') }}&rdquo;</blockquote>
+          <div class="mt-6 flex items-center justify-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold">AK</span><div class="text-left"><p class="text-sm font-semibold">{{ t('home.quoteName') }}</p><p class="text-xs text-muted-foreground">{{ t('home.quoteRole') }}</p></div></div>
         </section>
 
         <section class="px-6 py-20 text-center sm:px-16 lg:px-28">
-          <h2 class="mx-auto max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Deploy your first project in minutes.</h2>
-          <p class="mx-auto mt-4 max-w-xl text-muted-foreground">Connect a repository and Lavamilk takes care of the build, the CDN, and the scaling. Free to start.</p>
-          <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"><button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">Start deploying</button><a href="#" @click.prevent="go('pricing')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-semibold hover:bg-muted">View pricing</a></div>
+          <h2 class="mx-auto max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('home.ctaTitle') }}</h2>
+          <p class="mx-auto mt-4 max-w-xl text-muted-foreground">{{ t('home.ctaSubtitle') }}</p>
+          <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"><button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</button><a href="#" @click.prevent="go('pricing')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-semibold hover:bg-muted">{{ t('action.viewPricing') }}</a></div>
         </section>
       </main>
     </template>
@@ -195,20 +175,22 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
               <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-[38px] w-auto" />
             </a>
-            <nav class="hidden items-center gap-6 md:flex">
+            <nav class="hidden items-center gap-6 lg:flex">
               <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" :class="'cursor-pointer text-[13px] transition-colors hover:text-foreground ' + (page === n.p ? 'text-foreground' : 'text-muted-foreground')">{{ n.label }}</a>
             </nav>
           </div>
           <div class="flex items-center gap-2">
-            <button type="button" @click="onSignIn && onSignIn()" class="hidden cursor-pointer rounded-md px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground sm:inline-block">Sign in</button>
-            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">Start deploying</button>
-            <button class="-mr-1 rounded-md p-2 text-muted-foreground hover:bg-muted md:hidden" @click="open = !open" aria-label="Menu">
+            <LanguageSwitcher class="hidden sm:block" />
+            <button type="button" @click="onSignIn && onSignIn()" class="hidden cursor-pointer rounded-md px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground sm:inline-block">{{ t('action.signIn') }}</button>
+            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</button>
+            <button class="-mr-1 rounded-md p-2 text-muted-foreground hover:bg-muted lg:hidden" @click="open = !open" aria-label="Menu">
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path v-if="open" d="M18 6 6 18M6 6l12 12" /><path v-else d="M3 6h18M3 12h18M3 18h18" /></svg>
             </button>
           </div>
         </div>
-        <nav v-if="open" class="space-y-1 border-t border-border px-6 py-3 md:hidden">
+        <nav v-if="open" class="space-y-1 border-t border-border px-6 py-3 lg:hidden">
           <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" class="block cursor-pointer rounded-md px-2 py-2 text-sm text-muted-foreground hover:bg-muted">{{ n.label }}</a>
+          <div class="pt-1"><LanguageSwitcher /></div>
         </nav>
       </header>
 
@@ -216,9 +198,9 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         <!-- FEATURES -->
         <template v-if="page === 'features'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Features</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Built for shipping fast.</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Everything Lavamilk does, in one place. Connect a repo and the platform handles the rest.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.features.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.features.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.features.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
@@ -234,9 +216,9 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         <!-- DOCS -->
         <template v-else-if="page === 'docs'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Documentation</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Docs</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Guides and references to get you from zero to production.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.docs.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.docs.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.docs.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid gap-10 lg:grid-cols-[200px_1fr]">
@@ -247,19 +229,19 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
                 </div>
               </aside>
               <div>
-                <h2 class="text-2xl font-bold tracking-tight">Quickstart</h2>
+                <h2 class="text-2xl font-bold tracking-tight">{{ t('page.docs.quickstartTitle') }}</h2>
                 <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
-                  <p>Lavamilk deploys any frontend framework or static site with zero configuration. Install the CLI, point it at your project, and run a single command.</p>
+                  <p>{{ t('page.docs.intro') }}</p>
                   <div class="overflow-hidden rounded-lg border border-border bg-card font-mono text-[12.5px]">
-                    <div class="border-b border-border bg-muted px-3.5 py-2 text-[11px] text-muted-foreground">terminal</div>
+                    <div class="border-b border-border bg-muted px-3.5 py-2 text-[11px] text-muted-foreground">{{ t('page.docs.terminal') }}</div>
                     <pre class="overflow-x-auto px-4 py-3.5 leading-relaxed text-foreground/80"><code>npm i -g lavamilk-cli
 lavamilk login
 lavamilk deploy</code></pre>
                   </div>
-                  <h2>What happens next</h2>
-                  <p>Lavamilk detects your framework, installs dependencies, builds the project, and serves it from the edge. Every push to your default branch deploys to production; every pull request gets a preview URL.</p>
-                  <h2>Next steps</h2>
-                  <p>Add a custom domain, configure environment variables per environment, and wire up observability, all from the dashboard or the CLI.</p>
+                  <h2>{{ t('page.docs.whatNextTitle') }}</h2>
+                  <p>{{ t('page.docs.whatNextBody') }}</p>
+                  <h2>{{ t('page.docs.nextStepsTitle') }}</h2>
+                  <p>{{ t('page.docs.nextStepsBody') }}</p>
                 </div>
               </div>
             </div>
@@ -269,22 +251,22 @@ lavamilk deploy</code></pre>
         <!-- PRICING -->
         <template v-else-if="page === 'pricing'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Pricing</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Start free. Scale when you do.</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Simple, predictable pricing. No surprises, cancel anytime.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.pricing.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.pricing.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.pricing.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid items-start gap-5 lg:grid-cols-3">
-              <div v-for="t in tiers" :key="t.n" :class="'rounded-2xl border p-6 ' + (t.hi ? 'border-foreground bg-card shadow-lg' : 'border-border bg-card')">
-                <div class="flex items-center justify-between"><h3 class="text-lg font-bold tracking-tight">{{ t.n }}</h3><span v-if="t.hi" class="rounded-full bg-foreground px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-background">Popular</span></div>
-                <p class="mt-1 text-sm text-muted-foreground">{{ t.d }}</p>
-                <div class="mt-4 flex items-baseline gap-1"><span class="text-4xl font-extrabold tracking-tight">{{ t.p }}</span><span v-if="t.p !== 'Custom'" class="text-sm text-muted-foreground">/ mo</span></div>
-                <button type="button" @click="onSignUp && onSignUp()" :class="'mt-5 inline-flex w-full cursor-pointer items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold ' + (t.hi ? 'bg-foreground text-background hover:opacity-90' : 'border border-border hover:bg-muted')">{{ t.cta }}</button>
-                <ul class="mt-6 space-y-2.5 text-sm text-muted-foreground"><li v-for="x in t.f" :key="x" class="flex gap-2"><svg class="mt-0.5 h-4 w-4 shrink-0 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7" /></svg> {{ x }}</li></ul>
+              <div v-for="tr in tiers" :key="tr.n" :class="'rounded-2xl border p-6 ' + (tr.hi ? 'border-foreground bg-card shadow-lg' : 'border-border bg-card')">
+                <div class="flex items-center justify-between"><h3 class="text-lg font-bold tracking-tight">{{ tr.n }}</h3><span v-if="tr.hi" class="rounded-full bg-foreground px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-background">{{ t('page.pricing.popular') }}</span></div>
+                <p class="mt-1 text-sm text-muted-foreground">{{ tr.d }}</p>
+                <div class="mt-4 flex items-baseline gap-1"><span class="text-4xl font-extrabold tracking-tight">{{ tr.p }}</span><span v-if="isMonthly(tr.p)" class="text-sm text-muted-foreground">{{ t('page.pricing.perMonth') }}</span></div>
+                <button type="button" @click="onSignUp && onSignUp()" :class="'mt-5 inline-flex w-full cursor-pointer items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold ' + (tr.hi ? 'bg-foreground text-background hover:opacity-90' : 'border border-border hover:bg-muted')">{{ tr.cta }}</button>
+                <ul class="mt-6 space-y-2.5 text-sm text-muted-foreground"><li v-for="x in tr.f" :key="x" class="flex gap-2"><svg class="mt-0.5 h-4 w-4 shrink-0 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7" /></svg> {{ x }}</li></ul>
               </div>
             </div>
             <div class="mx-auto mt-14 max-w-2xl">
-              <h2 class="text-center text-xl font-bold tracking-tight">Frequently asked questions</h2>
+              <h2 class="text-center text-xl font-bold tracking-tight">{{ t('page.pricing.faqTitle') }}</h2>
               <div class="mt-6 divide-y divide-border overflow-hidden rounded-xl border border-border">
                 <div v-for="f in faqs" :key="f.q" class="bg-card p-5"><p class="text-sm font-semibold">{{ f.q }}</p><p class="mt-1.5 text-sm text-muted-foreground">{{ f.a }}</p></div>
               </div>
@@ -295,9 +277,9 @@ lavamilk deploy</code></pre>
         <!-- CHANGELOG -->
         <template v-else-if="page === 'changelog'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Changelog</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">What's new in Lavamilk</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Every improvement we ship, in one place.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.changelog.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.changelog.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.changelog.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto max-w-2xl space-y-8">
@@ -313,15 +295,15 @@ lavamilk deploy</code></pre>
         <!-- ABOUT -->
         <template v-else-if="page === 'about'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">About us</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">We are building the fastest way to ship.</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Lavamilk is a small, fully remote team obsessed with developer experience.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.about.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.about.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.about.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid items-center gap-10 lg:grid-cols-2">
               <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground">
-                <p>Lavamilk started with a simple frustration: deploying software was slower and more complicated than writing it. We set out to make shipping a non-event, so teams could spend their time building.</p>
-                <p>Today thousands of teams deploy to Lavamilk every day. We are a small crew that cares about craft, speed, and making infrastructure disappear.</p>
+                <p>{{ t('page.about.body1') }}</p>
+                <p>{{ t('page.about.body2') }}</p>
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div v-for="s in aboutStats" :key="s.l" class="rounded-2xl border border-border bg-card p-6"><p class="text-4xl font-extrabold tracking-tight">{{ s.n }}</p><p class="mt-1 text-sm text-muted-foreground">{{ s.l }}</p></div>
@@ -333,16 +315,16 @@ lavamilk deploy</code></pre>
         <!-- BLOG -->
         <template v-else-if="page === 'blog'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Blog</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">The Lavamilk blog</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Product updates, engineering deep-dives, and guides.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.blog.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.blog.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.blog.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               <a v-for="p in posts" :key="p.title" href="#" @click.prevent="go('post')" class="group cursor-pointer rounded-xl border border-border bg-card p-6 transition-colors hover:bg-muted/50">
                 <span class="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">{{ p.tag }} &middot; {{ p.read }}</span>
                 <h3 class="mt-3 text-lg font-semibold leading-snug tracking-tight">{{ p.title }}</h3>
-                <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium">Read post <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
+                <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium">{{ t('action.readPost') }} <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
               </a>
             </div>
           </section>
@@ -352,18 +334,18 @@ lavamilk deploy</code></pre>
         <template v-else-if="page === 'post'">
           <section class="border-b border-border px-6 py-16 sm:px-16 lg:px-28">
             <div class="mx-auto max-w-2xl">
-              <a href="#" @click.prevent="go('blog')" class="cursor-pointer font-mono text-[11px] uppercase tracking-wide text-muted-foreground hover:text-foreground">&larr; Back to blog</a>
-              <p class="mt-6 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">Engineering &middot; 6 min read</p>
-              <h1 class="mt-3 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">How we cut cold starts to zero</h1>
+              <a href="#" @click.prevent="go('blog')" class="cursor-pointer font-mono text-[11px] uppercase tracking-wide text-muted-foreground hover:text-foreground">{{ t('action.backToBlog') }}</a>
+              <p class="mt-6 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">{{ t('page.post.metaTag') }} &middot; {{ t('page.post.metaRead') }}</p>
+              <h1 class="mt-3 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{{ t('page.post.title') }}</h1>
             </div>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
-              <p>Cold starts have long been the tax you pay for serverless. When a function hasn't run recently, the platform has to spin up a new instance, and your user waits. We decided that tax was unacceptable.</p>
-              <h2>The approach</h2>
-              <p>Instead of booting a fresh runtime per request, Lavamilk keeps a pool of warm isolates at every edge location and routes incoming requests to the nearest available one. The result is a sub-millisecond startup, even for traffic that arrives in bursts.</p>
-              <h2>What it means for you</h2>
-              <p>You deploy the same code you always have. There is nothing to configure. Your functions simply run faster, everywhere, all the time.</p>
+              <p>{{ t('page.post.body1') }}</p>
+              <h2>{{ t('page.post.h2a') }}</h2>
+              <p>{{ t('page.post.body2') }}</p>
+              <h2>{{ t('page.post.h2b') }}</h2>
+              <p>{{ t('page.post.body3') }}</p>
             </div>
           </section>
         </template>
@@ -371,15 +353,15 @@ lavamilk deploy</code></pre>
         <!-- CAREERS -->
         <template v-else-if="page === 'careers'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Careers</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Build the platform developers love.</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">We are a small, fully remote team. Come help us make shipping effortless.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.careers.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.careers.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.careers.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto max-w-2xl divide-y divide-border overflow-hidden rounded-xl border border-border">
               <a v-for="r in roles" :key="r.t" href="#" @click.prevent="go('contact')" class="flex cursor-pointer items-center justify-between gap-4 bg-card p-5 transition-colors hover:bg-muted/50">
                 <div><p class="text-sm font-semibold tracking-tight">{{ r.t }}</p><p class="mt-0.5 text-xs text-muted-foreground">{{ r.team }} &middot; {{ r.loc }}</p></div>
-                <span class="inline-flex items-center gap-1 text-sm font-medium">Apply <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
+                <span class="inline-flex items-center gap-1 text-sm font-medium">{{ t('action.apply') }} <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
               </a>
             </div>
           </section>
@@ -388,9 +370,9 @@ lavamilk deploy</code></pre>
         <!-- CONTACT -->
         <template v-else-if="page === 'contact'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Contact</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Get in touch</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Questions about Lavamilk? We would love to hear from you.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.contact.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('page.contact.title') }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.contact.subtitle') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto grid max-w-3xl gap-5 sm:grid-cols-3">
@@ -402,19 +384,19 @@ lavamilk deploy</code></pre>
         <!-- LEGAL: privacy / terms / security -->
         <template v-else>
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Legal</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ legalTitles[page] }}</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Last updated June 2026.</p>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('page.legal.kicker') }}</span>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ legalTitle(page) }}</h1>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ t('page.legal.updated') }}</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
-              <p>This is placeholder copy for the {{ legalTitles[page].toLowerCase() }} of Lavamilk. Replace it with your own legal text before launch.</p>
-              <h2>Overview</h2>
-              <p>By using Lavamilk, you agree to the terms described on this page. We aim to keep this document clear and free of unnecessary jargon.</p>
-              <h2>Your data</h2>
-              <p>We process only the data needed to operate the service, never sell it, and store it in the region you choose. You can export or delete it at any time.</p>
-              <h2>Contact</h2>
-              <p>Questions about this policy? Reach our team at legal@lavamilk.example.</p>
+              <p>{{ t('page.legal.intro', { doc: legalTitle(page).toLowerCase() }) }}</p>
+              <h2>{{ t('page.legal.overviewTitle') }}</h2>
+              <p>{{ t('page.legal.overviewBody') }}</p>
+              <h2>{{ t('page.legal.dataTitle') }}</h2>
+              <p>{{ t('page.legal.dataBody') }}</p>
+              <h2>{{ t('page.legal.contactTitle') }}</h2>
+              <p>{{ t('page.legal.contactBody') }}</p>
             </div>
           </section>
         </template>
@@ -432,7 +414,7 @@ lavamilk deploy</code></pre>
             <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">{{ site.footerBlurb }}</p>
             <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-border px-3 py-1">
               <span class="h-1.5 w-1.5 rounded-full bg-foreground" />
-              <span class="font-mono text-[11px] text-muted-foreground">All systems operational</span>
+              <span class="font-mono text-[11px] text-muted-foreground">{{ t('footer.status') }}</span>
             </div>
           </div>
           <div v-for="col in FOOT" :key="col.h">
@@ -442,7 +424,7 @@ lavamilk deploy</code></pre>
             </ul>
           </div>
         </div>
-        <div class="mt-12 border-t border-border pt-6 text-sm text-muted-foreground">&copy; {{ year }} {{ site.name }}, Inc.</div>
+        <div class="mt-12 border-t border-border pt-6 text-sm text-muted-foreground">{{ t('footer.copyright', { year, name: site.name }) }}</div>
       </div>
     </footer>
   </div>

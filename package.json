@@ -10,7 +10,8 @@
     "pb:setup": "node scripts/pocketbase-setup.mjs"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.4.12"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.6",
