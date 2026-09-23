@@ -23,7 +23,6 @@ const go = (p) => {
 };
 
 const logos = ["Northwind", "Vela", "Cobalt", "Mainsail", "Brightline", "Orbit", "Tidewater"];
-const frameworks = ["Next.js", "Astro", "SvelteKit", "Remix", "Nuxt", "Vite"];
 
 // 顶部横幅指向的开源仓库
 const REPO_URL = "https://github.com/lavamilkTeam/lavamilk.template";
@@ -134,11 +133,8 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
           </div>
         </section>
 
-        <section class="border-b border-border px-6 py-12 sm:px-16 lg:px-28">
-          <div class="flex flex-col items-center justify-between gap-5 sm:flex-row">
-            <div><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('home.stackKicker') }}</span><h2 class="mt-3 text-2xl font-bold tracking-[-0.02em]">{{ t('home.stackTitle') }}</h2></div>
-            <div class="flex flex-wrap items-center gap-2"><span v-for="f in frameworks" :key="f" class="rounded-md border border-border bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground">{{ f }}</span></div>
-          </div>
+        <section class="border-b border-border px-6 py-12 text-center sm:px-16 lg:px-28">
+          <h2 class="text-2xl font-bold tracking-[-0.02em]">{{ t('home.communityTitle') }}</h2>
         </section>
 
         <section class="border-b border-border px-6 py-16 sm:px-16 lg:px-28">
