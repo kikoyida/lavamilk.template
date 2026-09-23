@@ -27,6 +27,8 @@ const frameworks = ["Next.js", "Astro", "SvelteKit", "Remix", "Nuxt", "Vite"];
 
 // 顶部横幅指向的开源仓库
 const REPO_URL = "https://github.com/lavamilkTeam/lavamilk.template";
+// 「开始部署」按钮跳转的开源仓库
+const SMT_REPO_URL = "https://github.com/lavamilkTeam/LavamilkSMT";
 
 const NAV = computed(() => [
   { label: t("nav.product"), p: "features" },
@@ -76,7 +78,7 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
           <div class="flex items-center gap-2">
             <LanguageSwitcher class="hidden sm:block" />
             <button type="button" @click="onSignIn && onSignIn()" class="hidden cursor-pointer rounded-md px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground sm:inline-block">{{ t('action.signIn') }}</button>
-            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</button>
+            <a :href="SMT_REPO_URL" target="_blank" rel="noopener noreferrer" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</a>
             <button class="-mr-1 rounded-md p-2 text-muted-foreground hover:bg-muted lg:hidden" @click="open = !open" aria-label="Menu">
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path v-if="open" d="M18 6 6 18M6 6l12 12" /><path v-else d="M3 6h18M3 12h18M3 18h18" /></svg>
             </button>
@@ -94,7 +96,7 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
           <h1 class="df-rise mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.03em] sm:text-6xl">{{ site.heroTitle }}</h1>
           <p class="df-rise-2 mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">{{ site.heroSubtitle }}</p>
           <div class="df-rise-2 mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }} <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
+            <a :href="SMT_REPO_URL" target="_blank" rel="noopener noreferrer" class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md bg-foreground px-5 py-2.5 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }} <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></a>
             <a href="#" @click.prevent="go('docs')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:bg-muted">{{ t('action.readDocs') }}</a>
           </div>
           <div class="df-rise-2 mx-auto mt-10 max-w-md overflow-hidden rounded-lg border border-border bg-card text-left shadow-sm">
@@ -164,7 +166,7 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
         <section class="px-6 py-20 text-center sm:px-16 lg:px-28">
           <h2 class="mx-auto max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('home.ctaTitle') }}</h2>
           <p class="mx-auto mt-4 max-w-xl text-muted-foreground">{{ t('home.ctaSubtitle') }}</p>
-          <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"><button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</button><a href="#" @click.prevent="go('pricing')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-semibold hover:bg-muted">{{ t('action.viewPricing') }}</a></div>
+          <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"><a :href="SMT_REPO_URL" target="_blank" rel="noopener noreferrer" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</a><a href="#" @click.prevent="go('pricing')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-semibold hover:bg-muted">{{ t('action.viewPricing') }}</a></div>
         </section>
       </main>
     </template>
@@ -185,7 +187,7 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
           <div class="flex items-center gap-2">
             <LanguageSwitcher class="hidden sm:block" />
             <button type="button" @click="onSignIn && onSignIn()" class="hidden cursor-pointer rounded-md px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground sm:inline-block">{{ t('action.signIn') }}</button>
-            <button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</button>
+            <a :href="SMT_REPO_URL" target="_blank" rel="noopener noreferrer" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-3.5 py-1.5 text-[13px] font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</a>
             <button class="-mr-1 rounded-md p-2 text-muted-foreground hover:bg-muted lg:hidden" @click="open = !open" aria-label="Menu">
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path v-if="open" d="M18 6 6 18M6 6l12 12" /><path v-else d="M3 6h18M3 12h18M3 18h18" /></svg>
             </button>
