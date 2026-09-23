@@ -86,7 +86,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
           <div class="flex items-center gap-8">
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
-              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-9 w-auto" />
+              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-[38px] w-auto" />
             </a>
             <nav class="hidden items-center gap-6 md:flex">
               <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" :class="'cursor-pointer text-[13px] transition-colors hover:text-foreground ' + (page === n.p ? 'text-foreground' : 'text-muted-foreground')">{{ n.label }}</a>
@@ -193,7 +193,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
           <div class="flex items-center gap-8">
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
-              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-9 w-auto" />
+              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-[38px] w-auto" />
             </a>
             <nav class="hidden items-center gap-6 md:flex">
               <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" :class="'cursor-pointer text-[13px] transition-colors hover:text-foreground ' + (page === n.p ? 'text-foreground' : 'text-muted-foreground')">{{ n.label }}</a>
