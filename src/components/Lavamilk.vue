@@ -1,5 +1,5 @@
 <script setup>
-// DevTools - a SaaS landing page template by SaaS Design. MIT licensed.
+// Lavamilk - a SaaS landing page template by SaaS Design. MIT licensed.
 import { ref } from "vue";
 import { useSiteContent } from "../composables/useSiteContent";
 
@@ -22,7 +22,7 @@ const logos = ["Northwind", "Vela", "Cobalt", "Mainsail", "Brightline", "Orbit",
 
 const posts = [
   { title: "How we cut cold starts to zero", tag: "Engineering", read: "6 min" },
-  { title: "Deploying a monorepo on DevTools", tag: "Guides", read: "8 min" },
+  { title: "Deploying a monorepo on Lavamilk", tag: "Guides", read: "8 min" },
   { title: "What edge rendering means for your app", tag: "Product", read: "5 min" },
 ];
 
@@ -55,9 +55,9 @@ const docGroups = [
 const aboutStats = [{ n: "2022", l: "Founded" }, { n: "14k+", l: "Teams" }, { n: "18", l: "Edge regions" }, { n: "100%", l: "Remote" }];
 
 const contacts = [
-  { h: "Sales", d: "Talk to our team about Enterprise.", v: "sales@devtools.example" },
-  { h: "Support", d: "Get help with your account.", v: "support@devtools.example" },
-  { h: "Press", d: "Media and partnership inquiries.", v: "press@devtools.example" },
+  { h: "Sales", d: "Talk to our team about Enterprise.", v: "sales@lavamilk.example" },
+  { h: "Support", d: "Get help with your account.", v: "support@lavamilk.example" },
+  { h: "Press", d: "Media and partnership inquiries.", v: "press@lavamilk.example" },
 ];
 
 const dashNav = ["Overview", "Deployments", "Analytics", "Logs", "Settings"];
@@ -76,7 +76,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
       <a href="#" @click.prevent="go('changelog')" class="block cursor-pointer border-b border-border bg-muted/60 transition-colors hover:bg-muted">
         <div class="mx-auto flex max-w-6xl items-center justify-center gap-2 px-6 py-2 text-center text-xs sm:text-sm">
           <span class="rounded-full bg-foreground px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-background">New</span>
-          <span class="font-medium">DevTools Edge Functions are now generally available.</span>
+          <span class="font-medium">Lavamilk Edge Functions are now generally available.</span>
           <span class="font-semibold underline-offset-4 hover:underline">Read more &rarr;</span>
         </div>
       </a>
@@ -120,9 +120,9 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
               <span class="ml-2 font-mono text-[11px] text-muted-foreground">bash</span>
             </div>
             <div class="px-4 py-3.5 font-mono text-[12.5px] leading-relaxed">
-              <p><span class="text-muted-foreground">$</span> devtools deploy</p>
+              <p><span class="text-muted-foreground">$</span> lavamilk deploy</p>
               <p class="mt-1 text-muted-foreground">Building... <span class="text-foreground">done in 12s</span></p>
-              <p class="text-muted-foreground">Deployed to <span class="text-foreground underline underline-offset-2">devtools.app/acme</span></p>
+              <p class="text-muted-foreground">Deployed to <span class="text-foreground underline underline-offset-2">lavamilk.app/acme</span></p>
             </div>
           </div>
         </section>
@@ -138,7 +138,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
           <div class="max-w-2xl">
             <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Features</span>
             <h2 class="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">Everything you need to ship.</h2>
-            <p class="mt-3 text-muted-foreground">From the first commit to global scale, DevTools handles the infrastructure so you can stay in your editor.</p>
+            <p class="mt-3 text-muted-foreground">From the first commit to global scale, Lavamilk handles the infrastructure so you can stay in your editor.</p>
           </div>
           <div class="mt-9 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             <div v-for="f in features" :key="f.t" class="flex flex-col bg-card p-6">
@@ -161,7 +161,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
           <div class="mx-auto mt-9 max-w-4xl overflow-hidden rounded-xl border border-border bg-card shadow-sm">
             <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr]">
               <aside class="hidden flex-col gap-1 border-r border-border p-3 text-left sm:flex">
-                <div class="mb-2 flex items-center gap-2 px-1"><span class="flex h-5 w-5 items-center justify-center rounded bg-foreground text-background"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z" /></svg></span><span class="text-xs font-bold">DevTools</span></div>
+                <div class="mb-2 flex items-center gap-2 px-1"><span class="flex h-5 w-5 items-center justify-center rounded bg-foreground text-background"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z" /></svg></span><span class="text-xs font-bold">Lavamilk</span></div>
                 <span v-for="(s, i) in dashNav" :key="s" :class="'flex items-center gap-2 rounded-md px-2.5 py-1.5 text-xs ' + (i === 1 ? 'bg-muted font-semibold text-foreground' : 'text-muted-foreground')"><span class="h-1.5 w-1.5 rounded-sm bg-muted-foreground/50" /> {{ s }}</span>
               </aside>
               <div class="p-4 text-left">
@@ -174,13 +174,13 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         </section>
 
         <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-          <blockquote class="mx-auto max-w-3xl text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl">"We moved our whole stack to DevTools in an afternoon and cut our deploy times from minutes to seconds. It just gets out of the way."</blockquote>
+          <blockquote class="mx-auto max-w-3xl text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl">"We moved our whole stack to Lavamilk in an afternoon and cut our deploy times from minutes to seconds. It just gets out of the way."</blockquote>
           <div class="mt-6 flex items-center justify-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold">AK</span><div class="text-left"><p class="text-sm font-semibold">Avery Kim</p><p class="text-xs text-muted-foreground">Staff Engineer, Brightline</p></div></div>
         </section>
 
         <section class="px-6 py-20 text-center sm:px-16 lg:px-28">
           <h2 class="mx-auto max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Deploy your first project in minutes.</h2>
-          <p class="mx-auto mt-4 max-w-xl text-muted-foreground">Connect a repository and DevTools takes care of the build, the CDN, and the scaling. Free to start.</p>
+          <p class="mx-auto mt-4 max-w-xl text-muted-foreground">Connect a repository and Lavamilk takes care of the build, the CDN, and the scaling. Free to start.</p>
           <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"><button type="button" @click="onSignUp && onSignUp()" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">Start deploying</button><a href="#" @click.prevent="go('pricing')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-semibold hover:bg-muted">View pricing</a></div>
         </section>
       </main>
@@ -218,7 +218,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
             <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Features</span>
             <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Built for shipping fast.</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Everything DevTools does, in one place. Connect a repo and the platform handles the rest.</p>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Everything Lavamilk does, in one place. Connect a repo and the platform handles the rest.</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
@@ -249,15 +249,15 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
               <div>
                 <h2 class="text-2xl font-bold tracking-tight">Quickstart</h2>
                 <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
-                  <p>DevTools deploys any frontend framework or static site with zero configuration. Install the CLI, point it at your project, and run a single command.</p>
+                  <p>Lavamilk deploys any frontend framework or static site with zero configuration. Install the CLI, point it at your project, and run a single command.</p>
                   <div class="overflow-hidden rounded-lg border border-border bg-card font-mono text-[12.5px]">
                     <div class="border-b border-border bg-muted px-3.5 py-2 text-[11px] text-muted-foreground">terminal</div>
-                    <pre class="overflow-x-auto px-4 py-3.5 leading-relaxed text-foreground/80"><code>npm i -g devtools-cli
-devtools login
-devtools deploy</code></pre>
+                    <pre class="overflow-x-auto px-4 py-3.5 leading-relaxed text-foreground/80"><code>npm i -g lavamilk-cli
+lavamilk login
+lavamilk deploy</code></pre>
                   </div>
                   <h2>What happens next</h2>
-                  <p>DevTools detects your framework, installs dependencies, builds the project, and serves it from the edge. Every push to your default branch deploys to production; every pull request gets a preview URL.</p>
+                  <p>Lavamilk detects your framework, installs dependencies, builds the project, and serves it from the edge. Every push to your default branch deploys to production; every pull request gets a preview URL.</p>
                   <h2>Next steps</h2>
                   <p>Add a custom domain, configure environment variables per environment, and wire up observability, all from the dashboard or the CLI.</p>
                 </div>
@@ -296,7 +296,7 @@ devtools deploy</code></pre>
         <template v-else-if="page === 'changelog'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
             <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Changelog</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">What's new in DevTools</h1>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">What's new in Lavamilk</h1>
             <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Every improvement we ship, in one place.</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
@@ -315,13 +315,13 @@ devtools deploy</code></pre>
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
             <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">About us</span>
             <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">We are building the fastest way to ship.</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">DevTools is a small, fully remote team obsessed with developer experience.</p>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Lavamilk is a small, fully remote team obsessed with developer experience.</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid items-center gap-10 lg:grid-cols-2">
               <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground">
-                <p>DevTools started with a simple frustration: deploying software was slower and more complicated than writing it. We set out to make shipping a non-event, so teams could spend their time building.</p>
-                <p>Today thousands of teams deploy to DevTools every day. We are a small crew that cares about craft, speed, and making infrastructure disappear.</p>
+                <p>Lavamilk started with a simple frustration: deploying software was slower and more complicated than writing it. We set out to make shipping a non-event, so teams could spend their time building.</p>
+                <p>Today thousands of teams deploy to Lavamilk every day. We are a small crew that cares about craft, speed, and making infrastructure disappear.</p>
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div v-for="s in aboutStats" :key="s.l" class="rounded-2xl border border-border bg-card p-6"><p class="text-4xl font-extrabold tracking-tight">{{ s.n }}</p><p class="mt-1 text-sm text-muted-foreground">{{ s.l }}</p></div>
@@ -334,7 +334,7 @@ devtools deploy</code></pre>
         <template v-else-if="page === 'blog'">
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
             <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Blog</span>
-            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">The DevTools blog</h1>
+            <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">The Lavamilk blog</h1>
             <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Product updates, engineering deep-dives, and guides.</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
@@ -361,7 +361,7 @@ devtools deploy</code></pre>
             <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
               <p>Cold starts have long been the tax you pay for serverless. When a function hasn't run recently, the platform has to spin up a new instance, and your user waits. We decided that tax was unacceptable.</p>
               <h2>The approach</h2>
-              <p>Instead of booting a fresh runtime per request, DevTools keeps a pool of warm isolates at every edge location and routes incoming requests to the nearest available one. The result is a sub-millisecond startup, even for traffic that arrives in bursts.</p>
+              <p>Instead of booting a fresh runtime per request, Lavamilk keeps a pool of warm isolates at every edge location and routes incoming requests to the nearest available one. The result is a sub-millisecond startup, even for traffic that arrives in bursts.</p>
               <h2>What it means for you</h2>
               <p>You deploy the same code you always have. There is nothing to configure. Your functions simply run faster, everywhere, all the time.</p>
             </div>
@@ -390,7 +390,7 @@ devtools deploy</code></pre>
           <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
             <span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Contact</span>
             <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Get in touch</h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Questions about DevTools? We would love to hear from you.</p>
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">Questions about Lavamilk? We would love to hear from you.</p>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto grid max-w-3xl gap-5 sm:grid-cols-3">
@@ -408,13 +408,13 @@ devtools deploy</code></pre>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
-              <p>This is placeholder copy for the {{ legalTitles[page].toLowerCase() }} of DevTools. Replace it with your own legal text before launch.</p>
+              <p>This is placeholder copy for the {{ legalTitles[page].toLowerCase() }} of Lavamilk. Replace it with your own legal text before launch.</p>
               <h2>Overview</h2>
-              <p>By using DevTools, you agree to the terms described on this page. We aim to keep this document clear and free of unnecessary jargon.</p>
+              <p>By using Lavamilk, you agree to the terms described on this page. We aim to keep this document clear and free of unnecessary jargon.</p>
               <h2>Your data</h2>
               <p>We process only the data needed to operate the service, never sell it, and store it in the region you choose. You can export or delete it at any time.</p>
               <h2>Contact</h2>
-              <p>Questions about this policy? Reach our team at legal@devtools.example.</p>
+              <p>Questions about this policy? Reach our team at legal@lavamilk.example.</p>
             </div>
           </section>
         </template>

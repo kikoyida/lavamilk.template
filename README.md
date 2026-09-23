@@ -2,7 +2,7 @@
 
 基于开源模板 [saas-landing-page-template](https://github.com/hannah-wright/saas-landing-page-template)（MIT）改造的动态官网：
 
-- **前台**：Vite + Vue 3 + Tailwind CSS v4（`DevTools.vue` 单文件组件，含 11 个页面）
+- **前台**：Vite + Vue 3 + Tailwind CSS v4（`Lavamilk.vue` 单文件组件，含 11 个页面）
 - **后台可编辑**：PocketBase（自带管理后台，内容存 SQLite 数据库）
 - **动效**：Hero 进场动画 + logo 跑马灯（模板自带），叠加滚动进场淡入（`src/plugins/reveal.js`）
 - **内容策略**：前台优先读 PocketBase，连不上时自动回退本地默认内容（`src/content/site.js`），站点永不白屏
@@ -11,7 +11,7 @@
 
 ```
 src/
-  components/DevTools.vue   页面组件（品牌名/Hero/价格/FAQ/更新日志等从 CMS 读取）
+  components/Lavamilk.vue   页面组件（品牌名/Hero/价格/FAQ/更新日志等从 CMS 读取）
   composables/useSiteContent.js   CMS 拉取 + 本地兜底
   content/site.js            本地默认内容（也是 CMS 种子数据）
   plugins/reveal.js          滚动进场动效

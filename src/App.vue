@@ -1,7 +1,7 @@
 <script setup>
-import DevTools from './components/DevTools.vue'
+import Lavamilk from './components/Lavamilk.vue'
 </script>
 
 <template>
-  <DevTools />
+  <Lavamilk />
 </template>

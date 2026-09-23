@@ -1,10 +1,10 @@
 // 本地默认内容（也是 CMS 的种子数据）。当 PocketBase 未启动时，站点用它照常渲染。
 export default {
   site: {
-    name: 'DevTools',
+    name: 'Lavamilk',
     heroTitle: 'Ship your code. We handle the rest.',
     heroSubtitle:
-      'DevTools is the developer platform that builds, deploys, and scales your apps on a global edge network. Connect a repo and go live in under a minute.',
+      'Lavamilk is the developer platform that builds, deploys, and scales your apps on a global edge network. Connect a repo and go live in under a minute.',
     footerBlurb: 'The developer platform to build, deploy, and scale your apps on the edge.',
   },
   features: [
