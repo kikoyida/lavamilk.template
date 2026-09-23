@@ -157,3 +157,8 @@ html {
     transition: none;
   }
 }
+
+/* ---- 品牌 Logo（透明底；深色模式下反相为白色） ---- */
+.dark .brand-logo {
+  filter: invert(1);
+}

@@ -86,8 +86,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
           <div class="flex items-center gap-8">
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
-              <span class="flex h-6 w-6 items-center justify-center rounded-md bg-foreground text-background"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z" /></svg></span>
-              <span class="text-[15px] font-semibold tracking-tight">{{ site.name }}</span>
+              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-7 w-auto" />
             </a>
             <nav class="hidden items-center gap-6 md:flex">
               <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" :class="'cursor-pointer text-[13px] transition-colors hover:text-foreground ' + (page === n.p ? 'text-foreground' : 'text-muted-foreground')">{{ n.label }}</a>
@@ -194,8 +193,7 @@ const legalTitles = { privacy: "Privacy Policy", terms: "Terms of Service", secu
         <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
           <div class="flex items-center gap-8">
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
-              <span class="flex h-6 w-6 items-center justify-center rounded-md bg-foreground text-background"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z" /></svg></span>
-              <span class="text-[15px] font-semibold tracking-tight">{{ site.name }}</span>
+              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-7 w-auto" />
             </a>
             <nav class="hidden items-center gap-6 md:flex">
               <a v-for="n in NAV" :key="n.label" href="#" @click.prevent="go(n.p)" :class="'cursor-pointer text-[13px] transition-colors hover:text-foreground ' + (page === n.p ? 'text-foreground' : 'text-muted-foreground')">{{ n.label }}</a>
@@ -429,8 +427,7 @@ devtools deploy</code></pre>
         <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div class="lg:col-span-2">
             <a href="#" @click.prevent="go('home')" class="flex cursor-pointer items-center gap-2">
-              <span class="flex h-6 w-6 items-center justify-center rounded-md bg-foreground text-background"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z" /></svg></span>
-              <span class="text-[15px] font-semibold tracking-tight">{{ site.name }}</span>
+              <img src="/lavamilk-logo.png" alt="Lavamilk" class="brand-logo h-7 w-auto" />
             </a>
             <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">{{ site.footerBlurb }}</p>
             <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-border px-3 py-1">
