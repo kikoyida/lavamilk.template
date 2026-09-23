@@ -28,6 +28,8 @@ const logos = ["Northwind", "Vela", "Cobalt", "Mainsail", "Brightline", "Orbit",
 const REPO_URL = "https://github.com/lavamilkTeam/lavamilk.template";
 // 「开始部署」按钮跳转的开源仓库
 const SMT_REPO_URL = "https://github.com/lavamilkTeam/LavamilkSMT";
+// 线上社群（QQ 群邀请链接）
+const COMMUNITY_URL = "https://qm.qq.com/q/fWFuAJosL0";
 
 const NAV = computed(() => [
   { label: t("nav.product"), p: "features" },
@@ -42,9 +44,6 @@ const aboutStats = computed(() => tm("aboutStats"));
 const posts = computed(() => tm("posts"));
 const roles = computed(() => tm("roles"));
 const contacts = computed(() => tm("contacts"));
-const dashNav = computed(() => tm("dash.nav"));
-const dashMetrics = computed(() => tm("dash.metrics"));
-const dashRows = computed(() => tm("dash.rows"));
 
 const legalTitle = (p) => t("legalTitles." + p);
 // 价格以 $ 开头才显示周期（"定制"/"Custom" 不显示）
@@ -137,32 +136,11 @@ const isMonthly = (p) => typeof p === "string" && p.trim().startsWith("$");
           <h2 class="text-2xl font-bold tracking-[-0.02em]">{{ t('home.communityTitle') }}</h2>
         </section>
 
-        <section class="border-b border-border px-6 py-16 sm:px-16 lg:px-28">
-          <div class="mx-auto max-w-2xl text-center"><span class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{{ t('home.dashKicker') }}</span><h2 class="mt-4 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{{ t('home.dashTitle') }}</h2><p class="mt-3 text-muted-foreground">{{ t('home.dashSubtitle') }}</p></div>
-          <div class="mx-auto mt-9 max-w-4xl overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-            <div class="grid grid-cols-1 sm:grid-cols-[180px_1fr]">
-              <aside class="hidden flex-col gap-1 border-r border-border p-3 text-left sm:flex">
-                <div class="mb-2 flex items-center gap-2 px-1"><span class="flex h-5 w-5 items-center justify-center rounded bg-foreground text-background"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z" /></svg></span><span class="text-xs font-bold">Lavamilk</span></div>
-                <span v-for="(s, i) in dashNav" :key="s" :class="'flex items-center gap-2 rounded-md px-2.5 py-1.5 text-xs ' + (i === 1 ? 'bg-muted font-semibold text-foreground' : 'text-muted-foreground')"><span class="h-1.5 w-1.5 rounded-sm bg-muted-foreground/50" /> {{ s }}</span>
-              </aside>
-              <div class="p-4 text-left">
-                <div class="flex items-center justify-between"><div><p class="text-sm font-bold tracking-tight">{{ t('dash.deployments') }}</p><p class="text-[11px] text-muted-foreground">{{ t('dash.project') }}</p></div><span class="rounded-md bg-foreground px-3 py-1.5 text-[11px] font-semibold text-background">{{ t('action.deploy') }}</span></div>
-                <div class="mt-3 grid grid-cols-3 gap-2.5"><div v-for="m in dashMetrics" :key="m.k" class="rounded-lg border border-border p-3"><p class="text-[10px] text-muted-foreground">{{ m.k }}</p><p class="mt-1 text-base font-bold tracking-tight">{{ m.v }}</p></div></div>
-                <div class="mt-2.5 space-y-1.5"><div v-for="r in dashRows" :key="r.b" class="flex items-center gap-2.5 rounded-lg border border-border px-3 py-2"><span :class="'h-2 w-2 rounded-full ' + (r.d ? 'bg-foreground' : 'bg-muted-foreground/40')" /><span class="flex-1 font-mono text-[11px]">{{ r.b }}</span><span class="rounded-full bg-muted px-2 py-0.5 text-[9px] font-semibold text-muted-foreground">{{ r.s }}</span><span class="font-mono text-[10px] text-muted-foreground">{{ t('term.ago') }}</span></div></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="border-b border-border px-6 py-16 text-center sm:px-16 lg:px-28">
-          <blockquote class="mx-auto max-w-3xl text-2xl font-semibold leading-snug tracking-[-0.02em] sm:text-3xl">&ldquo;{{ t('home.quote') }}&rdquo;</blockquote>
-          <div class="mt-6 flex items-center justify-center gap-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold">AK</span><div class="text-left"><p class="text-sm font-semibold">{{ t('home.quoteName') }}</p><p class="text-xs text-muted-foreground">{{ t('home.quoteRole') }}</p></div></div>
-        </section>
-
         <section class="px-6 py-20 text-center sm:px-16 lg:px-28">
-          <h2 class="mx-auto max-w-2xl text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{{ t('home.ctaTitle') }}</h2>
-          <p class="mx-auto mt-4 max-w-xl text-muted-foreground">{{ t('home.ctaSubtitle') }}</p>
-          <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"><a :href="SMT_REPO_URL" target="_blank" rel="noopener noreferrer" class="inline-flex cursor-pointer items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">{{ t('action.startDeploying') }}</a><a href="#" @click.prevent="go('pricing')" class="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-card px-6 py-3 text-sm font-semibold hover:bg-muted">{{ t('action.viewPricing') }}</a></div>
+          <h2 class="mx-auto max-w-2xl text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{{ t('home.joinTitle') }}</h2>
+          <div class="mt-8 flex justify-center">
+            <a :href="COMMUNITY_URL" target="_blank" rel="noopener noreferrer" class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background hover:opacity-90">{{ t('action.readMore') }}</a>
+          </div>
         </section>
       </main>
     </template>

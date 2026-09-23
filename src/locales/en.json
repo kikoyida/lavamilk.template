@@ -10,16 +10,12 @@
     "startDeploying": "Start deploying",
     "readDocs": "Read the docs",
     "readMore": "Read more →",
-    "viewPricing": "View pricing",
-    "deploy": "Deploy",
     "readPost": "Read post",
     "apply": "Apply",
     "backToBlog": "← Back to blog"
   },
   "lang": {
-    "label": "Language",
-    "en": "English",
-    "zh": "简体中文"
+    "label": "Language"
   },
   "banner": {
     "badge": "New",
@@ -28,8 +24,7 @@
   "term": {
     "building": "Building...",
     "doneIn": "done in 12s",
-    "deployedTo": "Deployed to",
-    "ago": "2m ago"
+    "deployedTo": "Deployed to"
   },
   "home": {
     "kicker": "The platform for shipping fast",
@@ -38,29 +33,7 @@
     "featuresTitle": "Desktop SMT, fully equipped.",
     "featuresSubtitle": "From mechanical parts to firmware, everything is open source and you can build it yourself — you just turn ideas into boards.",
     "communityTitle": "Or join our online and offline community to talk with more developers and entrepreneurs.",
-    "dashKicker": "The dashboard",
-    "dashTitle": "Every deploy, in one place.",
-    "dashSubtitle": "Watch builds, inspect logs, and roll back, all from a dashboard that stays out of your way.",
-    "quote": "We moved our whole stack to Lavamilk in an afternoon and cut our deploy times from minutes to seconds. It just gets out of the way.",
-    "quoteName": "Avery Kim",
-    "quoteRole": "Staff Engineer, Brightline",
-    "ctaTitle": "Deploy your first project in minutes.",
-    "ctaSubtitle": "Connect a repository and Lavamilk takes care of the build, the CDN, and the scaling. Free to start."
-  },
-  "dash": {
-    "deployments": "Deployments",
-    "project": "acme / web",
-    "nav": ["Overview", "Deployments", "Analytics", "Logs", "Settings"],
-    "metrics": [
-      { "k": "Uptime", "v": "99.99%" },
-      { "k": "Builds today", "v": "34" },
-      { "k": "Avg build", "v": "11s" }
-    ],
-    "rows": [
-      { "b": "main", "s": "Ready", "d": true },
-      { "b": "feat/api", "s": "Building", "d": false },
-      { "b": "fix/auth", "s": "Ready", "d": true }
-    ]
+    "joinTitle": "Join our online community! We also host offline forums and events from time to time."
   },
   "page": {
     "features": {

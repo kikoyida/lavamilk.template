@@ -10,16 +10,12 @@
     "startDeploying": "开始部署",
     "readDocs": "阅读文档",
     "readMore": "了解更多 →",
-    "viewPricing": "查看定价",
-    "deploy": "部署",
     "readPost": "阅读文章",
     "apply": "申请",
     "backToBlog": "← 返回博客"
   },
   "lang": {
-    "label": "语言",
-    "en": "English",
-    "zh": "简体中文"
+    "label": "语言"
   },
   "banner": {
     "badge": "新",
@@ -28,8 +24,7 @@
   "term": {
     "building": "构建中...",
     "doneIn": "12 秒完成",
-    "deployedTo": "已部署到",
-    "ago": "2 分钟前"
+    "deployedTo": "已部署到"
   },
   "home": {
     "kicker": "为快速交付而生的平台",
@@ -38,29 +33,7 @@
     "featuresTitle": "桌面级 SMT，一应俱全。",
     "featuresSubtitle": "从结构件到固件全部开源，设备可以自己组装，你只管把想法变成电路板。",
     "communityTitle": "亦或是加入我们的线上/线下社群？与更多开发者/创业者交流",
-    "dashKicker": "控制台",
-    "dashTitle": "所有部署，尽在一处。",
-    "dashSubtitle": "查看构建、排查日志、一键回滚，一个不打扰你的控制台就够了。",
-    "quote": "我们用一个下午把整套技术栈迁到 Lavamilk，部署时间从几分钟缩短到几秒。它完全不碍事。",
-    "quoteName": "Avery Kim",
-    "quoteRole": "Brightline 高级工程师",
-    "ctaTitle": "几分钟内部署你的第一个项目。",
-    "ctaSubtitle": "连接代码仓库，构建、CDN 和扩容都由 Lavamilk 搞定。免费开始。"
-  },
-  "dash": {
-    "deployments": "部署",
-    "project": "acme / web",
-    "nav": ["概览", "部署", "分析", "日志", "设置"],
-    "metrics": [
-      { "k": "可用性", "v": "99.99%" },
-      { "k": "今日构建", "v": "34" },
-      { "k": "平均构建", "v": "11s" }
-    ],
-    "rows": [
-      { "b": "main", "s": "就绪", "d": true },
-      { "b": "feat/api", "s": "构建中", "d": false },
-      { "b": "fix/auth", "s": "就绪", "d": true }
-    ]
+    "joinTitle": "快速加入我们的线上社群！我们时不时在线下举办各类论坛活动"
   },
   "page": {
     "features": {
