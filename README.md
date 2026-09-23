@@ -48,6 +48,15 @@ cd pocketbase
 npm run pb:setup
 ```
 
+之后改了 `src/locales/en.json` 里的 `content.*`（品牌、Hero、功能、定价、FAQ、更新日志），用这条命令推到 CMS：
+
+```bash
+npm run pb:sync     # 就地更新，不删集合、不改 schema
+```
+
+> `pb:setup` 是**删集合重建**（会重置后台里的修改），只在首次初始化时用；
+> `pb:sync` 是**增量同步**（按 sort 顺序更新记录，多退少补），日常改文案用这个。
+
 ### 3. 启动前台
 
 ```bash

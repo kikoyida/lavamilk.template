@@ -35,8 +35,8 @@
     "kicker": "The platform for shipping fast",
     "trustedBy": "Trusted by teams at fast-moving companies",
     "featuresKicker": "Features",
-    "featuresTitle": "Everything you need to ship.",
-    "featuresSubtitle": "From the first commit to global scale, Lavamilk handles the infrastructure so you can stay in your editor.",
+    "featuresTitle": "Desktop SMT, fully equipped.",
+    "featuresSubtitle": "From mechanical parts to firmware, everything is open source and you can build it yourself — you just turn ideas into boards.",
     "stackKicker": "Works with your stack",
     "stackTitle": "Deploy any framework. Zero config.",
     "dashKicker": "The dashboard",
@@ -66,8 +66,8 @@
   "page": {
     "features": {
       "kicker": "Features",
-      "title": "Built for shipping fast.",
-      "subtitle": "Everything Lavamilk does, in one place. Connect a repo and the platform handles the rest."
+      "title": "Built for desktop SMT.",
+      "subtitle": "Everything Lavamilk does, in one place. Open source, buildable, and yours to modify."
     },
     "docs": {
       "kicker": "Documentation",
@@ -187,12 +187,12 @@
       "footerBlurb": "The developer platform to build, deploy, and scale your apps on the edge."
     },
     "features": [
-      { "t": "Instant deploys", "d": "Push to your branch and ship to production in seconds. No pipelines to babysit." },
-      { "t": "Global edge network", "d": "Serve every request from the closest region, automatically, with zero config." },
-      { "t": "Preview environments", "d": "Every pull request gets its own live URL to review before you merge." },
-      { "t": "Built-in observability", "d": "Logs, traces, and metrics for every deploy, with no agents to install." },
-      { "t": "Instant rollbacks", "d": "Something broke? Roll back to any previous deploy in one click." },
-      { "t": "Secrets and env vars", "d": "Encrypted environment variables, scoped per environment and per branch." }
+      { "t": "Desktop footprint", "d": "Runs on a workbench — no dedicated workshop or industrial power required." },
+      { "t": "Fully open source", "d": "Mechanical parts, schematics, BOM and firmware are all open to build, modify and extend." },
+      { "t": "Vision alignment", "d": "HD camera assistance places 0402 passives and fine-pitch QFN reliably." },
+      { "t": "Flexible feeders", "d": "Supports electric and manual feeders plus loose-part trays — add stations as you grow." },
+      { "t": "One-click prototyping", "d": "Import a placement file and it runs automatically; small batches are ready the same day." },
+      { "t": "Community driven", "d": "Join the R&D discussion, share improvements and make it better together with fellow geeks." }
     ],
     "tiers": [
       { "n": "Hobby", "p": "$0", "d": "For personal projects and experiments.", "f": ["1 concurrent build", "100 GB bandwidth", "Preview deployments", "Community support"], "cta": "Start free", "hi": false },

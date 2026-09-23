@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "pb:setup": "node scripts/pocketbase-setup.mjs",
-    "pb:sync": "node scripts/pocketbase-sync-settings.mjs"
+    "pb:sync": "node scripts/pocketbase-sync.mjs"
   },
   "dependencies": {
     "vue": "^3.5.13",
