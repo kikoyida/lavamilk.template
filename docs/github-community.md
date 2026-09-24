@@ -20,7 +20,9 @@
 4. 创建后，把 Client ID 与生成的 Client Secret 填入宝塔 → Docker → 容器编排 → `lavamilk-community-db` 的环境变量文件，对应 `GITHUB_CLIENT_ID` 和 `GITHUB_CLIENT_SECRET`。保留原 MySQL 密码；不要把密钥放到聊天、仓库或 VITE 环境变量。
 5. 保存编排并重新创建 API 容器，使环境变量生效。检查 `/api/pig-king/health` 中 `oauthConfigured: true`，然后通过官网实际授权、扫描、退出，再确认退出后无法扫描。
 
-目前没有真实 App 凭据，登录按钮显示配置中。已测试模拟 GitHub 授权与真实 MySQL，真实 GitHub 授权还需上述步骤验收。
+2026-09-24 已通过 Safari 创建并配置 `lavamilkClub`（归属 `IwakuraRin`），在宝塔保存凭据并重建 API。健康接口已返回 `oauthConfigured: true`，真实 GitHub 授权后成功回到官网，显示登录账户 `iwakurarin`。应用未启用通配回调或 Device Flow；凭据仅留在服务器环境文件（权限 600），不写入仓库。
+
+首次真实扫描已完成：`iwakurarin` 名下 1 个公开仓库，33 条有效提交、24 个 PR、0 个 Issues，得分 2，Gemma 双语总结状态为 `ready`，报告已持久保存并进入个人榜单。Safari 退出后恢复登录入口，重新登录可恢复会话。
 
 ## 生产部署
 

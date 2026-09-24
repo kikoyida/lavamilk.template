@@ -113,7 +113,7 @@ cd pocketbase && unzip -o /tmp/pb.zip && chmod +x pocketbase
 
 社区入口使用 GitHub 授权登录，只能扫描登录者本人的公开活动。MySQL 独立保存账户、会话、扫描任务、最新报告与历次报告；个人排名长期保留，六小时缓存只控制重复扫描。组织旧报告迁入历史存档，不进入个人榜单。AI 通过现有私有隧道连接本地 Gemma。
 
-生产部署、OAuth App 创建、环境变量、测试与回滚见 [GitHub 社区配置](docs/github-community.md)。当前 OAuth App 凭据尚未填写，页面显示“GitHub 登录正在配置中”；填写后才可真实登录。此前的 [账户扫描文档](docs/pig-account-scanning.md) 是 v2 实现记录，线上社区路由现已由 Node API 接管，旧匿名扫描入口关闭。
+生产部署、OAuth App 创建、环境变量、测试与回滚见 [GitHub 社区配置](docs/github-community.md)。GitHub OAuth App 已配置，真实 Safari 授权与官网登录已验证。此前的 [账户扫描文档](docs/pig-account-scanning.md) 是 v2 实现记录，线上社区路由现已由 Node API 接管，旧匿名扫描入口关闭。
 
 「社区」菜单还保留暂未填写链接的 lavapiggy 社区选项。Google Noto 猪猪 SVG 许可保留在 `public/emoji/`，页面使用高清双语表情图。
 
