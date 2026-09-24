@@ -1,6 +1,6 @@
 <script setup>
 // Lavamilk — 官网单文件组件（基于 SaaS Design 的模板改造，MIT licensed）
-import { computed, defineAsyncComponent, ref } from "vue";
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useSiteContent } from "../composables/useSiteContent";
 import LanguageSwitcher from "./LanguageSwitcher.vue";
@@ -15,15 +15,39 @@ const { t, tm } = useI18n();
 // 站点内容：英文读 CMS（后台可编辑），其它语言读语言包
 const { site, features, tiers, faqs, changelog } = useSiteContent();
 
-const page = ref(window.location.hash === "#pig-king" ? "pig-king" : "home");
+const PAGES = new Set(["home", "features", "docs", "pricing", "changelog", "about", "blog", "post", "careers", "contact", "privacy", "terms", "security", "pig-king"]);
+const pageFromUrl = () => {
+  const hash = window.location.hash.slice(1);
+  return PAGES.has(hash) ? hash : "home";
+};
+const page = ref(pageFromUrl());
 const open = ref(false);
 const year = new Date().getFullYear();
 
 const go = (p) => {
-  page.value = p;
+  if (!PAGES.has(p)) return;
   open.value = false;
-  if (typeof window !== "undefined") window.scrollTo({ top: 0 });
+  const hash = p === "home" ? "" : `#${p}`;
+  if (page.value === p && window.location.hash === hash) return;
+  const url = window.location.pathname + window.location.search + hash;
+  window.history.pushState(null, "", url);
+  page.value = p;
+  window.scrollTo({ top: 0 });
 };
+
+const syncPageFromUrl = () => {
+  page.value = pageFromUrl();
+  open.value = false;
+  window.scrollTo({ top: 0 });
+};
+onMounted(() => {
+  window.addEventListener("popstate", syncPageFromUrl);
+  window.addEventListener("hashchange", syncPageFromUrl);
+});
+onUnmounted(() => {
+  window.removeEventListener("popstate", syncPageFromUrl);
+  window.removeEventListener("hashchange", syncPageFromUrl);
+});
 
 const logos = ["Northwind", "Vela", "Cobalt", "Mainsail", "Brightline", "Orbit", "Tidewater"];
 
