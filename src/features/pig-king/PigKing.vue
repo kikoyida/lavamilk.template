@@ -10,7 +10,6 @@ const loginEnabled = ref(false);
 const loading = ref(false);
 const error = ref('');
 const report = ref(null);
-const cached = ref(false);
 const board = ref([]);
 const boardLoading = ref(false);
 const boardError = ref(false);
@@ -44,7 +43,6 @@ async function scan() {
     progress.value = { phase: 'profile', repositories: 0 };
     const data = await scanAccount(value => { progress.value = value; }, controller.signal);
     report.value = data.report;
-    cached.value = data.cached;
     await refreshBoard();
   } catch (e) {
     if (e.message === 'authRequired') user.value = null;
@@ -60,14 +58,10 @@ async function showReport(item) {
   try {
     const data = await getAccountReport(item.account);
     report.value = data.report;
-    cached.value = true;
   } catch (_) { error.value = 'offline'; }
   finally { loading.value = false; }
 }
 
-function date(value) {
-  return new Date(value).toLocaleString(locale.value, { dateStyle: 'medium', timeStyle: 'short' });
-}
 async function refreshSession() {
   try { const session = await getSession(); user.value = session.user; loginEnabled.value = session.loginEnabled; }
   catch (_) { error.value = 'offline'; }
@@ -120,11 +114,9 @@ onMounted(() => {
 
       <section v-if="report" class="pig-report" aria-live="polite">
         <div class="pig-report-top">
-          <div><h2><a :href="`https://github.com/${report.account}`" target="_blank" rel="noopener noreferrer">{{ report.account }} ↗</a></h2><p>{{ t(`pig.tiers.${report.tier}`) }}</p></div>
+          <div><h2><a :href="`https://github.com/${report.account}`" target="_blank" rel="noopener noreferrer">{{ report.account }} ↗</a></h2></div>
           <div class="pig-score"><strong>{{ report.score }}</strong><span>/ 100</span></div>
         </div>
-        <p class="pig-hint">{{ t('pig.accountSample', { since: report.since, until: report.until, eligible: report.eligible }) }}</p>
-        <p class="pig-hint">{{ t('pig.scannedAt', { date: date(report.scannedAt) }) }} <span v-if="cached">· {{ t('pig.cached') }}</span></p>
         <p v-if="!report.ranked" class="pig-unranked">{{ t('pig.unranked') }}</p>
         <div class="pig-account-stats">
           <div><strong>{{ report.repositoryStats.total }}</strong><span>{{ t('pig.repos') }}</span></div>
@@ -132,12 +124,9 @@ onMounted(() => {
           <div><strong>{{ report.coverage.prs.total }}</strong><span>Pull requests</span></div>
           <div><strong>{{ report.coverage.issues.total }}</strong><span>Issues</span></div>
         </div>
-        <p class="pig-hint">{{ t(report.kind === 'Organization' ? 'pig.orgScope' : 'pig.userScope') }}</p>
-        <p class="pig-hint">{{ t(report.version >= 4 ? 'pig.coverage' : 'pig.legacyCoverage', { repos: report.repositoryStats.total, commits: report.coverage.commits.sampled, commitTotal: report.coverage.commits.total, prs: report.coverage.prs.sampled, prTotal: report.coverage.prs.total, issues: report.coverage.issues.sampled, issueTotal: report.coverage.issues.total }) }}</p>
         <p v-if="Object.values(report.coverage).some(value => value?.incomplete)" class="pig-unranked">{{ t('pig.incomplete') }}</p>
         <section class="pig-ai">
           <h3>{{ t('pig.aiTitle') }}</h3>
-          <p v-if="report.ai.coverage" class="pig-hint">{{ t('pig.aiCoverage', report.ai.coverage) }}</p>
           <template v-if="report.ai.status === 'ready' && aiSummary">
             <h4>{{ aiSummary.title }}</h4>
             <p class="pig-ai-summary">{{ aiSummary.summary }}</p>
@@ -177,7 +166,7 @@ onMounted(() => {
           <ol v-else-if="board.length" class="pig-rank-list">
             <li v-for="(item, i) in board" :key="item.account" :class="{ 'pig-selected': selected === item.account }">
               <span class="pig-rank">{{ String(i + 1).padStart(2, '0') }}</span>
-              <button type="button" :disabled="loading" @click="showReport(item)"><strong>{{ item.account }}</strong><span>{{ t(`pig.tiers.${item.tier}`) }} · {{ t('pig.hits', { count: item.eligible }) }}</span></button>
+              <button type="button" :disabled="loading" @click="showReport(item)"><strong>{{ item.account }}</strong><span>{{ t('pig.hits', { count: item.eligible }) }}</span></button>
               <strong class="pig-rank-score">{{ item.score }}</strong>
             </li>
           </ol>
