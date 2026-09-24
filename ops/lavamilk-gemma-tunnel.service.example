@@ -1,0 +1,17 @@
+# Installed on Proxmox host 192.168.188.3 on 2026-09-24.
+# Requires a dedicated key restricted on the website server to
+# permitlisten="127.0.0.1:18081" and no shell/agent/X11 access.
+[Unit]
+Description=Private Gemma tunnel for Lavamilk
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ssh -NT -i /root/.ssh/lavamilk-gemma -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=/root/.ssh/lavamilk-gemma-known-hosts -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -R 127.0.0.1:18081:192.168.2.5:8080 root@45.192.97.209
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

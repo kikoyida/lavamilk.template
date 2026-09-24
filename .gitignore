@@ -6,5 +6,12 @@ dist
 # PocketBase 运行时数据与二进制（二进制需按 README 下载）
 pocketbase/pocketbase
 pocketbase/pb_data
-pocketbase/pb_migrations
+pocketbase/pb_migrations/*
+!pocketbase/pb_migrations/1790160000_pig_scores.js
+!pocketbase/pb_migrations/1790208000_pig_accounts.js
 pocketbase/pb_public
+
+# Server credentials stay outside the repository.
+.env
+.env.*
+*.sql

@@ -4,11 +4,13 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "test": "node --test pocketbase/pb_hooks/pig-king/tests/*.test.cjs pocketbase/pb_hooks/pig-account/tests/*.test.cjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "pb:setup": "node scripts/pocketbase-setup.mjs",
-    "pb:sync": "node scripts/pocketbase-sync.mjs"
+    "pb:sync": "node scripts/pocketbase-sync.mjs",
+    "lint:boundaries": "depcruise server src pocketbase/pb_hooks --config .dependency-cruiser.cjs"
   },
   "dependencies": {
     "vue": "^3.5.13",
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.6",
     "@vitejs/plugin-vue": "^5.2.1",
+    "dependency-cruiser": "^18.4.0",
     "tailwindcss": "^4.0.6",
     "vite": "^6.0.7"
   }

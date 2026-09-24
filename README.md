@@ -63,7 +63,7 @@ npm run pb:sync     # 就地更新，不删集合、不改 schema
 npm run dev        # http://localhost:5173
 ```
 
-> Vite 已把 `/api` 代理到 PocketBase，前端无跨域问题。
+> Vite 将 `/api/pig-king` 代理到社区 API（8091），其他 `/api` 代理到 PocketBase（8090）。社区服务启动见下方文档。
 
 ## 后台怎么改内容
 
@@ -108,6 +108,16 @@ npm run dev        # http://localhost:5173
 curl -4 -L -o /tmp/pb.zip "https://github.com/pocketbase/pocketbase/releases/download/v0.40.4/pocketbase_0.40.4_darwin_arm64.zip"
 cd pocketbase && unzip -o /tmp/pb.zip && chmod +x pocketbase
 ```
+
+## GitHub 个人猪猪榜（v3）
+
+社区入口使用 GitHub 授权登录，只能扫描登录者本人的公开活动。MySQL 独立保存账户、会话、扫描任务、最新报告与历次报告；个人排名长期保留，六小时缓存只控制重复扫描。组织旧报告迁入历史存档，不进入个人榜单。AI 通过现有私有隧道连接本地 Gemma。
+
+生产部署、OAuth App 创建、环境变量、测试与回滚见 [GitHub 社区配置](docs/github-community.md)。当前 OAuth App 凭据尚未填写，页面显示“GitHub 登录正在配置中”；填写后才可真实登录。此前的 [账户扫描文档](docs/pig-account-scanning.md) 是 v2 实现记录，线上社区路由现已由 Node API 接管，旧匿名扫描入口关闭。
+
+「社区」菜单还保留暂未填写链接的 lavapiggy 社区选项。Google Noto 猪猪 SVG 许可保留在 `public/emoji/`，页面使用高清双语表情图。
+
+运行 `npm test`、`npm run lint:boundaries`、`npm run build` 验证评分、模块边界和前端。新服务的真实 MySQL 集成测试需要专用空测试数据库，具体命令见配置文档。
 
 ## License
 

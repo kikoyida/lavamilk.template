@@ -1,9 +1,105 @@
 {
   "nav": {
+    "community": "Community",
+    "pigKing": "Pig Rankings",
+    "lavapiggy": "lavapiggy Community",
     "product": "Product",
     "docs": "Docs",
     "pricing": "Pricing",
     "changelog": "Changelog"
+  },
+  "pig": {
+    "kicker": "SERIOUS CODE. SILLY SCORES.",
+    "title": "How much oink",
+    "titleAccent": "is in your GitHub?",
+    "subtitle": "The midnight fixes. The mysterious updates. The commits you wish you could take back. Let your GitHub history tell its story.",
+    "chip": "Just for fun · Backed by commits",
+    "mascot": "Oink has arrived",
+    "inputLabel": "Feed us a GitHub account",
+    "scan": "Check my oink",
+    "scanning": "Sniffing out commits",
+    "wait": "Reading this GitHub account. Larger accounts may take a little longer…",
+    "report": "YOUR OINK REPORT",
+    "sample": "Branch {branch} · {scanned} scanned · {eligible} eligible · {excluded} merge, bot or invalid commits excluded",
+    "scannedAt": "Scanned {date}",
+    "cached": "Saved scan result",
+    "unranked": "Fewer than 20 eligible commits. This account does not enter the rankings yet.",
+    "hits": "{count} commits",
+    "noHits": "No oink evidence here.",
+    "board": "Pig Rankings",
+    "refresh": "Refresh",
+    "boardScope": "Personal rankings · Saved permanently · Top 50",
+    "boardLoading": "Bringing out the throne…",
+    "boardError": "Rankings are unavailable right now. Please try refreshing in a moment.",
+    "emptyTitle": "The throne is yours to claim",
+    "emptyBoard": "Sign in with GitHub to join the pig rankings.",
+    "scoreMeme": "Scores? Pigs don’t care.",
+    "scoreMemeAlt": "A surprised pig with red exclamation and question marks overhead",
+    "formula": "Each metric = matching share × weight. Add the four metrics and round to a score out of 100. A commit may match multiple metrics.",
+    "disclaimer": "For fun, not a judgment of code quality or developer skill. Night hours use a fixed UTC+8 clock, not an inferred author location. Merge commits and identifiable bots are excluded. This sample is not the full history.",
+    "tiers": {
+      "king": "Pig King · Maximum oink energy",
+      "chaos": "Chaos pig · Always a new episode",
+      "piglet": "Rising piglet · An occasional oink",
+      "angel": "Zen pig · Peaceful commit energy"
+    },
+    "rules": {
+      "night": {
+        "title": "Midnight munchies",
+        "description": "Author timestamps between 00:00 and 05:59 in UTC+8. Someone is still at the keyboard."
+      },
+      "fix": {
+        "title": "Patch parade",
+        "description": "Titles containing fix, fixes, fixed, hotfix, oops, bugfix, or 修复 / 修正 / 补丁. Surely fixed this time."
+      },
+      "vague": {
+        "title": "Mystery messages",
+        "description": "Titles that only say update, fix, test, wip, tmp, stuff, change(s), misc, save, 更新, 修改, 测试, 修复 or dots. You had to be there."
+      },
+      "revert": {
+        "title": "Take it back",
+        "description": "Messages beginning with revert, 回滚 or 撤回. Pretend that last commit never happened."
+      }
+    },
+    "errors": {
+      "invalidRepo": "Enter owner/repo or https://github.com/owner/repo for a public repository.",
+      "notFound": "This public account was not found. Check the username.",
+      "rateLimit": "A request limit was reached. Try again later; completed scan stages are retained.",
+      "empty": "This repository has no commits yet. Nothing to sniff out.",
+      "github": "GitHub could not be reached. Please try again in a moment.",
+      "offline": "The scanning service is unavailable. Please try again later.",
+      "invalidAccount": "Enter a GitHub username or profile URL, not a repository.",
+      "unsupportedAccount": "Only personal GitHub accounts are supported.",
+      "tooLarge": "This account exceeds the 10,000-repository limit. Contact the site administrator; no partial report was generated.",
+      "authRequired": "Sign in with GitHub first.",
+      "forbidden": "Session validation failed. Refresh and try again.",
+      "identityChanged": "Your GitHub username changed. Sign out and back in.",
+      "accountNotAllowed": "You can only scan your signed-in GitHub account.",
+      "authUnavailable": "GitHub sign-in is being configured.",
+      "oauthFailed": "GitHub authorization was not completed. Try again."
+    },
+    "accountSample": "{since} — {until} · {eligible} eligible commits · A playful score, not a measure of code quality",
+    "repos": "Public repositories",
+    "repoDetails": "All public repositories · {count}",
+    "userScope": "Repositories include owned public repos and forks. Activity covers commits, PRs and issues authored by this user, including contributions to other projects.",
+    "orgScope": "Organization account: activity belongs to its public repositories, not to any individual member.",
+    "coverage": "{repos} repositories enumerated; commits {commits}/{commitTotal} · PRs {prs}/{prTotal} · issues {issues}/{issueTotal} (sampled/search total). Repositories provide metadata; commit search covers default branches only. No private content, full comment threads or complete history.",
+    "incomplete": "GitHub marked some search results as incomplete. Totals and samples may omit activity.",
+    "aiTitle": "AI oink report",
+    "aiUnconfigured": "Account data is ready. AI summaries have not been enabled yet.",
+    "aiUnavailable": "AI could not finish this summary. The account data and fixed score are still available.",
+    "noActivity": "No matching public activity was found in this period.",
+    "progress": {
+      "profile": "Finding the account…",
+      "repos": "Enumerating public repositories: {count} read…",
+      "commits": "Reading commits from the last 90 days…",
+      "prs": "Reading pull requests…",
+      "issues": "Reading issues…",
+      "ai": "AI is writing the oink report…"
+    },
+    "githubLogin": "Sign in with GitHub",
+    "logout": "Sign out",
+    "authLoading": "Checking sign-in…"
   },
   "action": {
     "signIn": "Sign in",
@@ -111,31 +207,104 @@
     }
   },
   "docsGroups": [
-    { "h": "Getting started", "items": ["Quickstart", "Connect a repo", "Your first deploy"] },
-    { "h": "Guides", "items": ["Environment variables", "Custom domains", "Edge functions"] },
-    { "h": "Reference", "items": ["CLI", "REST API", "Build settings"] }
+    {
+      "h": "Getting started",
+      "items": [
+        "Quickstart",
+        "Connect a repo",
+        "Your first deploy"
+      ]
+    },
+    {
+      "h": "Guides",
+      "items": [
+        "Environment variables",
+        "Custom domains",
+        "Edge functions"
+      ]
+    },
+    {
+      "h": "Reference",
+      "items": [
+        "CLI",
+        "REST API",
+        "Build settings"
+      ]
+    }
   ],
   "aboutStats": [
-    { "n": "2022", "l": "Founded" },
-    { "n": "14k+", "l": "Teams" },
-    { "n": "18", "l": "Edge regions" },
-    { "n": "100%", "l": "Remote" }
+    {
+      "n": "2022",
+      "l": "Founded"
+    },
+    {
+      "n": "14k+",
+      "l": "Teams"
+    },
+    {
+      "n": "18",
+      "l": "Edge regions"
+    },
+    {
+      "n": "100%",
+      "l": "Remote"
+    }
   ],
   "posts": [
-    { "title": "How we cut cold starts to zero", "tag": "Engineering", "read": "6 min" },
-    { "title": "Deploying a monorepo on Lavamilk", "tag": "Guides", "read": "8 min" },
-    { "title": "What edge rendering means for your app", "tag": "Product", "read": "5 min" }
+    {
+      "title": "How we cut cold starts to zero",
+      "tag": "Engineering",
+      "read": "6 min"
+    },
+    {
+      "title": "Deploying a monorepo on Lavamilk",
+      "tag": "Guides",
+      "read": "8 min"
+    },
+    {
+      "title": "What edge rendering means for your app",
+      "tag": "Product",
+      "read": "5 min"
+    }
   ],
   "roles": [
-    { "t": "Senior Platform Engineer", "team": "Infrastructure", "loc": "Remote" },
-    { "t": "Developer Advocate", "team": "Developer Relations", "loc": "Remote" },
-    { "t": "Product Designer", "team": "Design", "loc": "Remote" },
-    { "t": "Support Engineer", "team": "Customer Success", "loc": "Remote" }
+    {
+      "t": "Senior Platform Engineer",
+      "team": "Infrastructure",
+      "loc": "Remote"
+    },
+    {
+      "t": "Developer Advocate",
+      "team": "Developer Relations",
+      "loc": "Remote"
+    },
+    {
+      "t": "Product Designer",
+      "team": "Design",
+      "loc": "Remote"
+    },
+    {
+      "t": "Support Engineer",
+      "team": "Customer Success",
+      "loc": "Remote"
+    }
   ],
   "contacts": [
-    { "h": "Sales", "d": "Talk to our team about Enterprise.", "v": "sales{'@'}lavamilk.example" },
-    { "h": "Support", "d": "Get help with your account.", "v": "support{'@'}lavamilk.example" },
-    { "h": "Press", "d": "Media and partnership inquiries.", "v": "press{'@'}lavamilk.example" }
+    {
+      "h": "Sales",
+      "d": "Talk to our team about Enterprise.",
+      "v": "sales{'@'}lavamilk.example"
+    },
+    {
+      "h": "Support",
+      "d": "Get help with your account.",
+      "v": "support{'@'}lavamilk.example"
+    },
+    {
+      "h": "Press",
+      "d": "Media and partnership inquiries.",
+      "v": "press{'@'}lavamilk.example"
+    }
   ],
   "legalTitles": {
     "privacy": "Privacy Policy",
@@ -146,9 +315,65 @@
     "status": "All systems operational",
     "copyright": "© {year} {name}, Inc.",
     "cols": [
-      { "h": "Product", "links": [{ "label": "Features", "p": "features" }, { "label": "Pricing", "p": "pricing" }, { "label": "Docs", "p": "docs" }, { "label": "Changelog", "p": "changelog" }] },
-      { "h": "Company", "links": [{ "label": "About", "p": "about" }, { "label": "Blog", "p": "blog" }, { "label": "Careers", "p": "careers" }, { "label": "Contact", "p": "contact" }] },
-      { "h": "Legal", "links": [{ "label": "Privacy", "p": "privacy" }, { "label": "Terms", "p": "terms" }, { "label": "Security", "p": "security" }] }
+      {
+        "h": "Product",
+        "links": [
+          {
+            "label": "Features",
+            "p": "features"
+          },
+          {
+            "label": "Pricing",
+            "p": "pricing"
+          },
+          {
+            "label": "Docs",
+            "p": "docs"
+          },
+          {
+            "label": "Changelog",
+            "p": "changelog"
+          }
+        ]
+      },
+      {
+        "h": "Company",
+        "links": [
+          {
+            "label": "About",
+            "p": "about"
+          },
+          {
+            "label": "Blog",
+            "p": "blog"
+          },
+          {
+            "label": "Careers",
+            "p": "careers"
+          },
+          {
+            "label": "Contact",
+            "p": "contact"
+          }
+        ]
+      },
+      {
+        "h": "Legal",
+        "links": [
+          {
+            "label": "Privacy",
+            "p": "privacy"
+          },
+          {
+            "label": "Terms",
+            "p": "terms"
+          },
+          {
+            "label": "Security",
+            "p": "security"
+          }
+        ]
+      }
     ]
   },
   "content": {
@@ -159,28 +384,108 @@
       "footerBlurb": "The developer platform to build, deploy, and scale your apps on the edge."
     },
     "features": [
-      { "t": "Desktop footprint", "d": "Runs on a workbench — no dedicated workshop or industrial power required." },
-      { "t": "Fully open source", "d": "Mechanical parts, schematics, BOM and firmware are all open to build, modify and extend." },
-      { "t": "Vision alignment", "d": "HD camera assistance places 0402 passives and fine-pitch QFN reliably." },
-      { "t": "Flexible feeders", "d": "Supports electric and manual feeders plus loose-part trays — add stations as you grow." },
-      { "t": "One-click prototyping", "d": "Import a placement file and it runs automatically; small batches are ready the same day." },
-      { "t": "Community driven", "d": "Join the R&D discussion, share improvements and make it better together with fellow geeks." }
+      {
+        "t": "Desktop footprint",
+        "d": "Runs on a workbench — no dedicated workshop or industrial power required."
+      },
+      {
+        "t": "Fully open source",
+        "d": "Mechanical parts, schematics, BOM and firmware are all open to build, modify and extend."
+      },
+      {
+        "t": "Vision alignment",
+        "d": "HD camera assistance places 0402 passives and fine-pitch QFN reliably."
+      },
+      {
+        "t": "Flexible feeders",
+        "d": "Supports electric and manual feeders plus loose-part trays — add stations as you grow."
+      },
+      {
+        "t": "One-click prototyping",
+        "d": "Import a placement file and it runs automatically; small batches are ready the same day."
+      },
+      {
+        "t": "Community driven",
+        "d": "Join the R&D discussion, share improvements and make it better together with fellow geeks."
+      }
     ],
     "tiers": [
-      { "n": "Hobby", "p": "$0", "d": "For personal projects and experiments.", "f": ["1 concurrent build", "100 GB bandwidth", "Preview deployments", "Community support"], "cta": "Start free", "hi": false },
-      { "n": "Pro", "p": "$20", "d": "For professional developers and teams.", "f": ["Everything in Hobby", "Unlimited builds", "1 TB bandwidth", "Observability + logs", "Email support"], "cta": "Start free trial", "hi": true },
-      { "n": "Enterprise", "p": "Custom", "d": "For organizations at scale.", "f": ["Everything in Pro", "SSO and SAML", "Audit logs and SLA", "Dedicated support"], "cta": "Contact sales", "hi": false }
+      {
+        "n": "Hobby",
+        "p": "$0",
+        "d": "For personal projects and experiments.",
+        "f": [
+          "1 concurrent build",
+          "100 GB bandwidth",
+          "Preview deployments",
+          "Community support"
+        ],
+        "cta": "Start free",
+        "hi": false
+      },
+      {
+        "n": "Pro",
+        "p": "$20",
+        "d": "For professional developers and teams.",
+        "f": [
+          "Everything in Hobby",
+          "Unlimited builds",
+          "1 TB bandwidth",
+          "Observability + logs",
+          "Email support"
+        ],
+        "cta": "Start free trial",
+        "hi": true
+      },
+      {
+        "n": "Enterprise",
+        "p": "Custom",
+        "d": "For organizations at scale.",
+        "f": [
+          "Everything in Pro",
+          "SSO and SAML",
+          "Audit logs and SLA",
+          "Dedicated support"
+        ],
+        "cta": "Contact sales",
+        "hi": false
+      }
     ],
     "faqs": [
-      { "q": "Is there a free plan?", "a": "Yes. The Hobby plan is free forever and includes preview deployments and 100 GB of bandwidth." },
-      { "q": "Can I change plans later?", "a": "Absolutely. Upgrade or downgrade at any time; changes are prorated automatically." },
-      { "q": "Do you offer discounts?", "a": "We offer discounts for startups and open-source projects. Reach out to our team." }
+      {
+        "q": "Is there a free plan?",
+        "a": "Yes. The Hobby plan is free forever and includes preview deployments and 100 GB of bandwidth."
+      },
+      {
+        "q": "Can I change plans later?",
+        "a": "Absolutely. Upgrade or downgrade at any time; changes are prorated automatically."
+      },
+      {
+        "q": "Do you offer discounts?",
+        "a": "We offer discounts for startups and open-source projects. Reach out to our team."
+      }
     ],
     "changelog": [
-      { "date": "Jun 4, 2026", "title": "Edge Functions are now generally available", "body": "Run code at the edge in 18 regions with zero cold starts. Available on every plan today." },
-      { "date": "May 21, 2026", "title": "Faster builds with remote caching", "body": "Shared build caches cut median build times by 40% across the platform." },
-      { "date": "May 7, 2026", "title": "Audit logs for Enterprise", "body": "Every action in your workspace is now recorded and exportable for compliance." },
-      { "date": "Apr 23, 2026", "title": "One-click rollbacks", "body": "Promote any previous deploy back to production from the dashboard or the CLI." }
+      {
+        "date": "Jun 4, 2026",
+        "title": "Edge Functions are now generally available",
+        "body": "Run code at the edge in 18 regions with zero cold starts. Available on every plan today."
+      },
+      {
+        "date": "May 21, 2026",
+        "title": "Faster builds with remote caching",
+        "body": "Shared build caches cut median build times by 40% across the platform."
+      },
+      {
+        "date": "May 7, 2026",
+        "title": "Audit logs for Enterprise",
+        "body": "Every action in your workspace is now recorded and exportable for compliance."
+      },
+      {
+        "date": "Apr 23, 2026",
+        "title": "One-click rollbacks",
+        "body": "Promote any previous deploy back to production from the dashboard or the CLI."
+      }
     ]
   }
 }

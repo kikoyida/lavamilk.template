@@ -1,0 +1,46 @@
+services:
+  mysql:
+    image: mysql@sha256:0744ee5ef89ce6ccfa13de3e579fe6b9e27f93dd70da9c06d2c908b1b193fb8d
+    container_name: lavamilk-community-db
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:13306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /opt/lavamilk-community/mysql:/var/lib/mysql
+    command: ["--innodb-buffer-pool-size=128M", "--performance-schema=OFF", "--max-connections=30"]
+    mem_limit: 512m
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  api:
+    image: node@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+    container_name: lavamilk-community-api
+    restart: unless-stopped
+    network_mode: host
+    user: "1000:1000"
+    working_dir: /app
+    command: ["node", "server/start.js"]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 192m
+    volumes:
+      - /www/wwwroot/lavamilk.club/community:/app:ro
+    environment:
+      PUBLIC_ORIGIN: https://lavamilk.club
+      PORT: 8091
+      DATABASE_URL: mysql://lavamilk:${MYSQL_PASSWORD}@127.0.0.1:13306/lavamilk_community
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      PIG_GITHUB_TOKEN: ${PIG_GITHUB_TOKEN:-}
+      PIG_AI_URL: http://127.0.0.1:18081/v1/chat/completions
+      PIG_AI_MODEL: gemma-4-12b
+      PIG_AI_PROVIDER: llamacpp
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
