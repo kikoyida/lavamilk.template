@@ -30,6 +30,8 @@ export async function openStore(url) {
     try { await conn.beginTransaction(); const result = await fn(conn); await conn.commit(); return result; }
     catch (e) { await conn.rollback(); throw e; } finally { conn.release(); }
   }
+  function progress(state) { return {status:'pending',phase:state?.review?.waitUntil>Date.now()?'modelWaiting':state?.phase || 'profile',repositories:state?.repositories?.length || state?.report?.repositories?.length || 0,
+    retryAfter:state?.review?.waitUntil ? Math.max(0,Math.ceil((state.review.waitUntil-Date.now())/1000)):0,processed:state?.review?.reviewed || state?.[state?.phase]?.sampled || 0}; }
   return {
     async health() { await pool.query('SELECT 1'); },
     close: () => pool.end(),
@@ -59,11 +61,11 @@ export async function openStore(url) {
     },
     async logout(hash) { await pool.execute('DELETE FROM community_sessions WHERE token_hash=?', [hash]); },
     async leaderboard() {
-      const [rows] = await pool.query(`SELECT u.login account,u.avatar_url avatar,r.score,r.eligible,r.report,r.completed_at
+      const [rows] = await pool.query(`SELECT u.login account,u.avatar_url avatar,r.score,r.eligible,JSON_UNQUOTE(JSON_EXTRACT(r.report,'$.tier')) tier,r.completed_at
         FROM community_reports r JOIN community_users u USING(github_id)
         WHERE r.eligible>=20 AND u.login NOT LIKE '~retired-%' ORDER BY r.score DESC,u.login ASC LIMIT 50`);
       return rows.map(r => ({ account: r.account, avatar: r.avatar, score: r.score, eligible: r.eligible,
-        tier: decode(r.report).tier, scannedAt: new Date(Number(r.completed_at)).toISOString() }));
+        tier: r.tier, scannedAt: new Date(Number(r.completed_at)).toISOString() }));
     },
     async report(login) {
       const [rows] = await pool.execute(`SELECT r.report,u.login FROM community_reports r
@@ -73,22 +75,26 @@ export async function openStore(url) {
     claim(user, now, begin) { return transaction(async conn => {
       await conn.execute('INSERT IGNORE INTO community_jobs (github_id) VALUES (?)', [user.id]);
       const [[job]] = await conn.execute('SELECT * FROM community_jobs WHERE github_id=? FOR UPDATE', [user.id]);
-      const [[saved]] = await conn.execute('SELECT * FROM community_reports WHERE github_id=?', [user.id]);
-      if (saved && Number(saved.completed_at) > now - 6*3600000 && saved.account === user.login)
-        return { response: { status: 'done', cached: true, report: decode(saved.report) } };
+      const [[saved]] = await conn.execute("SELECT account,completed_at,JSON_EXTRACT(report,'$.version') version,JSON_UNQUOTE(JSON_EXTRACT(report,'$.ai.status')) ai_status FROM community_reports WHERE github_id=?", [user.id]);
+      const initial=begin(user.login,now);
+      if (saved && saved.ai_status!=='unavailable' && Number(saved.version)===initial.version && Number(saved.completed_at) > now - 6*3600000 && saved.account === user.login)
+        {
+        const [[cached]]=await conn.execute('SELECT report FROM community_reports WHERE github_id=?',[user.id]);
+        return {response:{status:'done',cached:true,report:decode(cached.report)}};
+      }
       let state = decode(job.state);
       if (Number(job.locked_until) > now) {
-        if (job.failure) throw new Error(job.failure);
-        return { response: { status: 'pending', phase: state?.phase || 'profile', repositories: state?.repositories?.length || 0 } };
+        if (job.failure) throw Object.assign(new Error(job.failure),{retryAfter:Math.ceil((Number(job.locked_until)-now)/1000)});
+        return { response: progress(state) };
       }
       if (now - Number(job.last_request) < 2000) throw new Error('rateLimit');
-      if (!state || state.account !== user.login || Date.parse(state.startedAt) < now - 6*3600000) state = begin(user.login, now);
+      if (!state || state.version!==initial.version || state.account!==user.login || Date.parse(state.startedAt)<now-7*86400000) state=initial;
       const lease = randomUUID();
       await conn.execute('UPDATE community_jobs SET state=?,lease=?,locked_until=?,last_request=?,failure=? WHERE github_id=?',
         [JSON.stringify(state), lease, now+120000, now, '', user.id]);
       return { state, lease };
     }); },
-    finish(user, lease, state, failure, now) { return transaction(async conn => {
+    finish(user, lease, state, failure, now, retryAfter) { return transaction(async conn => {
       const [[job]] = await conn.execute('SELECT lease FROM community_jobs WHERE github_id=? FOR UPDATE', [user.id]);
       if (job?.lease !== lease) throw new Error('rateLimit');
       if (state?.phase === 'done') {
@@ -103,8 +109,8 @@ export async function openStore(url) {
         return { status: 'done', cached: false, report };
       }
       if (state) await conn.execute('UPDATE community_jobs SET state=? WHERE github_id=?', [JSON.stringify(state),user.id]);
-      await conn.execute('UPDATE community_jobs SET lease=NULL,locked_until=?,failure=? WHERE github_id=?', [failure ? now+60000 : 0, failure || '', user.id]);
-      return { status: 'pending', phase: state?.phase, repositories: state?.repositories?.length || 0 };
+      await conn.execute('UPDATE community_jobs SET lease=NULL,locked_until=?,failure=? WHERE github_id=?', [failure ? now+(retryAfter || 60)*1000 : 0, failure || '', user.id]);
+      return progress(state);
     }); },
     async importLegacy(reports) {
       for (const report of reports) await pool.execute('INSERT IGNORE INTO community_legacy_reports (account,report) VALUES (?,?)', [report.account, JSON.stringify(report)]);

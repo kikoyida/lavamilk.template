@@ -83,8 +83,8 @@
     "repoDetails": "All public repositories · {count}",
     "userScope": "Repositories include owned public repos and forks. Activity covers commits, PRs and issues authored by this user, including contributions to other projects.",
     "orgScope": "Organization account: activity belongs to its public repositories, not to any individual member.",
-    "coverage": "{repos} repositories enumerated; commits {commits}/{commitTotal} · PRs {prs}/{prTotal} · issues {issues}/{issueTotal} (sampled/search total). Repositories provide metadata; commit search covers default branches only. No private content, full comment threads or complete history.",
-    "incomplete": "GitHub marked some search results as incomplete. Totals and samples may omit activity.",
+    "coverage": "Since account creation: commits {commits}/{commitTotal} · PRs {prs}/{prTotal} · issues {issues}/{issueTotal} (deduplicated/search hits). Indexed public records only; no private, deleted or unindexed content, comments or code diffs. Up to 10,000 per type; size limits and gaps are flagged.",
+    "incomplete": "Some search hits were not retrieved (deduplication, GitHub search limits or processing limits). This report evaluates retrieved records only.",
     "aiTitle": "AI oink report",
     "aiUnconfigured": "Account data is ready. AI summaries have not been enabled yet.",
     "aiUnavailable": "AI could not finish this summary. The account data and fixed score are still available.",
@@ -92,14 +92,18 @@
     "progress": {
       "profile": "Finding the account…",
       "repos": "Enumerating public repositories: {count} read…",
-      "commits": "Reading commits from the last 90 days…",
-      "prs": "Reading pull requests…",
-      "issues": "Reading issues…",
-      "ai": "AI is writing the oink report…"
+      "commits": "Reading commits since account creation: {processed}…",
+      "prs": "Reading historical PR bodies: {processed}…",
+      "issues": "Reading historical issues: {processed}…",
+      "ai": "The pig is reviewing batches: {processed} records read…",
+      "waiting": "GitHub rate limit reached. Progress is saved; resuming automatically…",
+      "modelWaiting": "The local model is loading or busy. Resuming shortly; {processed} records reviewed…"
     },
     "githubLogin": "Sign in with GitHub",
     "logout": "Sign out",
-    "authLoading": "Checking sign-in…"
+    "authLoading": "Checking sign-in…",
+    "aiCoverage": "AI batch review: {reviewed}/{total} messages and bodies; {truncated} texts limited to their first 1,000 characters; {failedBatches} failed batches.",
+    "legacyCoverage": "This is an older 90-day sample. Its owner can sign in and rescan for a history report starting at account creation."
   },
   "action": {
     "signIn": "Sign in",

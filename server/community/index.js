@@ -13,10 +13,14 @@ export async function createApplication(config, { fetch: transport = globalThis.
     let r;
     try { r = await transport('https://api.github.com'+path, { signal:AbortSignal.timeout(12000), headers:{
       Accept:'application/vnd.github+json','User-Agent':'Lavamilk-Community','X-GitHub-Api-Version':'2022-11-28',
-      ...(config.githubToken ? {Authorization:'Bearer '+config.githubToken} : {}) } }); }
+      ...(config.githubToken ? {Authorization:'Bearer '+config.githubToken} : config.clientId && config.clientSecret ?
+        {Authorization:'Basic '+Buffer.from(config.clientId+':'+config.clientSecret).toString('base64')} : {}) } }); }
     catch { throw new Error('github'); }
     if (r.status===404) throw new Error('notFound');
-    if ([403,429].includes(r.status)) throw new Error('rateLimit');
+    if ([403,429].includes(r.status)) {
+      const retry=Number(r.headers.get('retry-after')) || (Number(r.headers.get('x-ratelimit-remaining'))===0 ? Number(r.headers.get('x-ratelimit-reset'))-now()/1000 : 60);
+      throw Object.assign(new Error('rateLimit'),{retryAfter:Math.max(3,Math.min(3600,Math.ceil(retry || 60)))});
+    }
     if (!r.ok) throw new Error('github');
     return r.json();
   }
@@ -67,16 +71,16 @@ export async function createApplication(config, { fetch: transport = globalThis.
         if (!input || Array.isArray(input) || Object.keys(input).length) throw new Error('accountNotAllowed');
         const claim=await store.claim(user,now(),begin);
         if (claim.response) return json(res,200,claim.response);
-        let state, failure;
+        let state, failure, retryAfter;
         try { state=await next(claim.state,{github,ai,now:now(),githubId:user.id}); }
-        catch(e) { failure=codes[e.message] ? e.message : 'github'; }
-        const result=await store.finish(user,claim.lease,state,failure,now());
-        if (failure) throw new Error(failure);
+        catch(e) { failure=codes[e.message] ? e.message : 'github'; retryAfter=e.retryAfter; }
+        const result=await store.finish(user,claim.lease,state,failure,now(),retryAfter);
+        if (failure) throw Object.assign(new Error(failure),{retryAfter});
         return json(res,200,result);
       }
       // Retired anonymous repository APIs must not bypass the login gate.
       return json(res,404,{code:'notFound'});
-    } catch(e) { return json(res,codes[e.message] || 503,{code:codes[e.message] ? e.message : 'offline'}); }
+    } catch(e) { return json(res,codes[e.message] || 503,{code:codes[e.message] ? e.message : 'offline',...(e.message==='rateLimit'?{retryAfter:e.retryAfter || 5}:{})}); }
   }
   return { handler, close:()=>store.close(), importLegacy:reports=>store.importLegacy(reports) };
 }

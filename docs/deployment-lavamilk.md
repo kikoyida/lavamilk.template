@@ -75,3 +75,11 @@
 ## 2026-09-24 GitHub 登录与独立 MySQL
 
 社区 API 已从 PocketBase 迁到 Node 22 服务，代理至 127.0.0.1:8091；CMS 保持原服务。个人榜与历史报告保存于独立 MySQL 8.4，旧组织报告已迁入存档。部署位置、OAuth App 待配置步骤和回滚说明见 [GitHub 社区配置](github-community.md)。新的永久个人榜替代前文 v2 的近期账户榜，旧匿名扫描入口不再开放。
+
+## 2026-09-24 历史审稿与 VM 102 扩容
+
+社区 v4 从账号创建日期分页搜索公开历史，并批量审阅提交说明与 PR/Issue 正文；容量限制和覆盖语义见 `github-community.md`。生产更新前备份为 `/www/backups/lavamilk/history-20260924/`（API 源码、前端入口与 MySQL 一致性快照）。原哈希前端资源继续保留，可恢复旧入口；数据库不需要回滚即可运行旧 API。
+
+真实批处理首次触发 VM 102 中 `gemma.service` 的 6 GiB MemoryMax，日志明确记录 oom-kill。经用户允许扩容至 10 GB，Proxmox 内存改为 10240 MiB，并正常关机、启动生效。主机配置备份为 `/root/vm102-before-memory-10g.conf`。VM 内新增 `/etc/systemd/system/gemma.service.d/lavamilk-memory.conf`：MemoryHigh=8G、MemoryMax=9G，给系统保留余量；参考 `ops/gemma-memory.conf.example`。
+
+另将 `/opt/gemma/start.sh` 的 batch-size/ubatch-size 从 256/128 降为 64/32，原文件保存在 `/opt/gemma/start.sh.pre-lavamilk-history`；模型、视觉能力和 16384 上下文不变。官网把输入拆成小批，模型加载、繁忙或临时网络失败时等待后重试同一批，最多四次，失败批次显式计数。未完成 AI 的报告可立即重试，不被六小时缓存锁住。

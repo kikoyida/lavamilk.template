@@ -20,6 +20,7 @@ const aiSummary = computed(() => report.value?.ai?.[locale.value.startsWith('zh'
 const controller = new AbortController();
 onUnmounted(() => controller.abort());
 const sourceGroups = computed(() => report.value ? [
+  { id: 'commits', title: 'Commits', items: (report.value.commits || []).map(c=>({title:c.commit.message.split('\n')[0],url:c.url})) },
   { id: 'prs', title: 'Pull requests', items: report.value.prs },
   { id: 'issues', title: 'Issues', items: report.value.issues },
 ] : []);
@@ -113,7 +114,7 @@ onMounted(() => {
           <button class="pig-primary" type="button" :disabled="!loginEnabled" @click="loginGitHub">{{ t('pig.githubLogin') }}</button>
           <span v-if="!loginEnabled" class="pig-hint">{{ t('pig.errors.authUnavailable') }}</span>
         </div>
-        <p v-if="loading" role="status" class="pig-hint">{{ t(`pig.progress.${progress.phase}`, { count: progress.repositories }) }}</p>
+        <p v-if="loading" role="status" class="pig-hint">{{ t(`pig.progress.${progress.phase}`, { count: progress.repositories, processed: progress.processed || 0 }) }}</p>
         <p v-if="error" role="alert" class="pig-error">{{ t(`pig.errors.${error}`) }}</p>
       </form>
 
@@ -132,10 +133,11 @@ onMounted(() => {
           <div><strong>{{ report.coverage.issues.total }}</strong><span>Issues</span></div>
         </div>
         <p class="pig-hint">{{ t(report.kind === 'Organization' ? 'pig.orgScope' : 'pig.userScope') }}</p>
-        <p class="pig-hint">{{ t('pig.coverage', { repos: report.repositoryStats.total, commits: report.coverage.commits.sampled, commitTotal: report.coverage.commits.total, prs: report.coverage.prs.sampled, prTotal: report.coverage.prs.total, issues: report.coverage.issues.sampled, issueTotal: report.coverage.issues.total }) }}</p>
+        <p class="pig-hint">{{ t(report.version >= 4 ? 'pig.coverage' : 'pig.legacyCoverage', { repos: report.repositoryStats.total, commits: report.coverage.commits.sampled, commitTotal: report.coverage.commits.total, prs: report.coverage.prs.sampled, prTotal: report.coverage.prs.total, issues: report.coverage.issues.sampled, issueTotal: report.coverage.issues.total }) }}</p>
         <p v-if="Object.values(report.coverage).some(value => value?.incomplete)" class="pig-unranked">{{ t('pig.incomplete') }}</p>
         <section class="pig-ai">
           <h3>{{ t('pig.aiTitle') }}</h3>
+          <p v-if="report.ai.coverage" class="pig-hint">{{ t('pig.aiCoverage', report.ai.coverage) }}</p>
           <template v-if="report.ai.status === 'ready' && aiSummary">
             <h4>{{ aiSummary.title }}</h4>
             <p class="pig-ai-summary">{{ aiSummary.summary }}</p>
