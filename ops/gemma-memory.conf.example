@@ -1,4 +1,4 @@
 # VM 102: 10 GiB RAM. Install as a gemma.service drop-in on that VM only.
 [Service]
-MemoryHigh=8G
+MemoryHigh=infinity
 MemoryMax=9G

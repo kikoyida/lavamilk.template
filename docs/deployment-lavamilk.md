@@ -80,6 +80,8 @@
 
 社区 v4 从账号创建日期分页搜索公开历史，并批量审阅提交说明与 PR/Issue 正文；容量限制和覆盖语义见 `github-community.md`。生产更新前备份为 `/www/backups/lavamilk/history-20260924/`（API 源码、前端入口与 MySQL 一致性快照）。原哈希前端资源继续保留，可恢复旧入口；数据库不需要回滚即可运行旧 API。
 
-真实批处理首次触发 VM 102 中 `gemma.service` 的 6 GiB MemoryMax，日志明确记录 oom-kill。经用户允许扩容至 10 GB，Proxmox 内存改为 10240 MiB，并正常关机、启动生效。主机配置备份为 `/root/vm102-before-memory-10g.conf`。VM 内新增 `/etc/systemd/system/gemma.service.d/lavamilk-memory.conf`：MemoryHigh=8G、MemoryMax=9G，给系统保留余量；参考 `ops/gemma-memory.conf.example`。
+真实批处理首次触发 VM 102 中 `gemma.service` 的 6 GiB MemoryMax，日志明确记录 oom-kill。经用户允许扩容至 10 GB，Proxmox 内存改为 10240 MiB，并正常关机、启动生效。主机配置备份为 `/root/vm102-before-memory-10g.conf`。VM 内新增 `/etc/systemd/system/gemma.service.d/lavamilk-memory.conf`：MemoryHigh=infinity、MemoryMax=9G，给系统保留余量；参考 `ops/gemma-memory.conf.example`。
 
-另将 `/opt/gemma/start.sh` 的 batch-size/ubatch-size 从 256/128 降为 64/32，原文件保存在 `/opt/gemma/start.sh.pre-lavamilk-history`；模型、视觉能力和 16384 上下文不变。官网把输入拆成小批，模型加载、繁忙或临时网络失败时等待后重试同一批，最多四次，失败批次显式计数。未完成 AI 的报告可立即重试，不被六小时缓存锁住。
+另将 `/opt/gemma/start.sh` 的 batch-size/ubatch-size 从 256/128 降为 64/32，原文件保存在 `/opt/gemma/start.sh.pre-lavamilk-history`；另将默认 8192 MiB 的提示词 RAM 缓存显式限制为 `--cache-ram 256`，防止连续任务逐渐吃满内存；模型、视觉能力和 16384 上下文不变。官网把输入拆成小批，模型加载、繁忙或临时网络失败时等待后重试同一批，最多四次，失败批次显式计数。未完成 AI 的报告可立即重试，不被六小时缓存锁住。
+
+扩容及缓存限制后的真实验收：`iwakurarin` 从 2024-11-06 扫至 2026-09-24，读取 35/35 条提交、48/48 个 PR、0 个 Issues。AI 完成 83/83 条、失败批次 0、正文截断 0；生成带原始来源链接的中英毒舌报告，Safari 展示与 MySQL 保存均已确认。过程验证了模型重载后的任务续跑，没有重读已完成批次。
