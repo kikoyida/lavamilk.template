@@ -178,6 +178,16 @@
       "title": "The Lavamilk blog",
       "subtitle": "Product updates, engineering deep-dives, and guides."
     },
+    "post": {
+      "metaTag": "Engineering",
+      "metaRead": "6 min read",
+      "title": "How we cut cold starts to zero",
+      "body1": "Cold starts have long been the tax you pay for serverless. When a function hasn't run recently, the platform has to spin up a new instance, and your user waits. We decided that tax was unacceptable.",
+      "h2a": "The approach",
+      "body2": "Instead of booting a fresh runtime per request, Lavamilk keeps a pool of warm isolates at every edge location and routes incoming requests to the nearest available one. The result is a sub-millisecond startup, even for traffic that arrives in bursts.",
+      "h2b": "What it means for you",
+      "body3": "You deploy the same code you always have. There is nothing to configure. Your functions simply run faster, everywhere, all the time."
+    },
     "careers": {
       "kicker": "Careers",
       "title": "Build the platform developers love.",
@@ -247,15 +257,18 @@
   "posts": [
     {
       "title": "How we cut cold starts to zero",
-      "tag": "Engineering"
+      "tag": "Engineering",
+      "read": "6 min"
     },
     {
       "title": "Deploying a monorepo on Lavamilk",
-      "tag": "Guides"
+      "tag": "Guides",
+      "read": "8 min"
     },
     {
       "title": "What edge rendering means for your app",
-      "tag": "Product"
+      "tag": "Product",
+      "read": "5 min"
     }
   ],
   "roles": [
