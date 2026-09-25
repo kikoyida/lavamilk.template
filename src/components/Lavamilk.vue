@@ -17,31 +17,31 @@ const { site, features, tiers, faqs, changelog } = useSiteContent();
 
 const PAGES = new Set(["home", "features", "docs", "pricing", "changelog", "about", "blog", "careers", "contact", "privacy", "terms", "security", "pig-king"]);
 const posts = computed(() => tm("posts"));
-const hasPost = (id) => posts.value.some((post) => post.id === id);
-const routeFromUrl = () => {
+const pageFromUrl = () => {
   const hash = window.location.hash.slice(1);
-  if (hash === "post" && posts.value.length) return `post/${posts.value[0].id}`;
-  if (hash.startsWith("post/") && hasPost(hash.slice(5))) return hash;
+  if (hash === "post" || hash.startsWith("post/")) {
+    window.history.replaceState(null, "", window.location.pathname + window.location.search + "#blog");
+    return "blog";
+  }
   return PAGES.has(hash) ? hash : "home";
 };
-const route = ref(routeFromUrl());
-const page = computed(() => route.value.startsWith("post/") ? "post" : route.value);
+const page = ref(pageFromUrl());
 const open = ref(false);
 const year = new Date().getFullYear();
 const pageHash = (p) => p === "home" ? "" : `#${p}`;
 const pageHref = (p) => pageHash(p) || window.location.pathname + window.location.search;
 
 const go = (p) => {
-  if (!PAGES.has(p) && !(p.startsWith("post/") && hasPost(p.slice(5)))) return;
+  if (!PAGES.has(p)) return;
   open.value = false;
   const hash = pageHash(p);
-  if (route.value === p && window.location.hash === hash) {
+  if (page.value === p && window.location.hash === hash) {
     window.scrollTo({ top: 0 });
     return;
   }
   const url = window.location.pathname + window.location.search + hash;
   window.history.pushState(null, "", url);
-  route.value = p;
+  page.value = p;
   window.scrollTo({ top: 0 });
 };
 
@@ -52,7 +52,7 @@ const navigate = (event, p) => {
 };
 
 const syncPageFromUrl = () => {
-  route.value = routeFromUrl();
+  page.value = pageFromUrl();
   open.value = false;
   window.scrollTo({ top: 0 });
 };
@@ -97,7 +97,6 @@ const FOOT = computed(() =>
 );
 const docGroups = computed(() => tm("docsGroups"));
 const aboutStats = computed(() => tm("aboutStats"));
-const selectedPost = computed(() => posts.value.find((post) => `post/${post.id}` === route.value) || posts.value[0]);
 const roles = computed(() => tm("roles"));
 const contacts = computed(() => tm("contacts"));
 
@@ -109,8 +108,7 @@ const PAGE_TITLE_KEYS = {
 };
 watchEffect(() => {
   document.documentElement.lang = locale.value;
-  const title = page.value === "post" ? selectedPost.value?.title
-    : ["privacy", "terms", "security"].includes(page.value) ? legalTitle(page.value)
+  const title = ["privacy", "terms", "security"].includes(page.value) ? legalTitle(page.value)
       : PAGE_TITLE_KEYS[page.value] ? t(PAGE_TITLE_KEYS[page.value]) : "";
   document.title = title ? `${title} | ${site.value.name}` : site.value.name;
 });
@@ -356,31 +354,10 @@ lavamilk deploy</code></pre>
           </section>
           <section class="px-6 py-14 sm:px-16 lg:px-28">
             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              <a v-for="p in posts" :key="p.id" :href="pageHref(`post/${p.id}`)" @click="navigate($event, `post/${p.id}`)" class="group cursor-pointer rounded-xl border border-border bg-card p-6 transition-colors hover:bg-muted/50">
-                <span class="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">{{ p.tag }} &middot; {{ p.read }}</span>
+              <article v-for="p in posts" :key="p.title" class="rounded-xl border border-border bg-card p-6">
+                <span class="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">{{ p.tag }}</span>
                 <h3 class="mt-3 text-lg font-semibold leading-snug tracking-tight">{{ p.title }}</h3>
-                <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium">{{ t('action.readPost') }} <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
-              </a>
-            </div>
-          </section>
-        </template>
-
-        <!-- POST -->
-        <template v-else-if="page === 'post'">
-          <section class="border-b border-border px-6 py-16 sm:px-16 lg:px-28">
-            <div class="mx-auto max-w-2xl">
-              <a :href="pageHref('blog')" @click="navigate($event, 'blog')" class="cursor-pointer font-mono text-[11px] uppercase tracking-wide text-muted-foreground hover:text-foreground">{{ t('action.backToBlog') }}</a>
-              <p class="mt-6 font-mono text-[11px] uppercase tracking-wide text-muted-foreground">{{ selectedPost.tag }} &middot; {{ selectedPost.read }}</p>
-              <h1 class="mt-3 text-3xl font-bold tracking-[-0.02em] sm:text-4xl">{{ selectedPost.title }}</h1>
-            </div>
-          </section>
-          <section class="px-6 py-14 sm:px-16 lg:px-28">
-            <div class="mx-auto max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground [&_h2]:mt-8 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground">
-              <p>{{ selectedPost.body1 }}</p>
-              <h2>{{ selectedPost.h2a }}</h2>
-              <p>{{ selectedPost.body2 }}</p>
-              <h2>{{ selectedPost.h2b }}</h2>
-              <p>{{ selectedPost.body3 }}</p>
+              </article>
             </div>
           </section>
         </template>

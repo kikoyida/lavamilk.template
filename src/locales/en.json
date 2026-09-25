@@ -246,37 +246,16 @@
   ],
   "posts": [
     {
-      "id": "cold-starts",
       "title": "How we cut cold starts to zero",
-      "tag": "Engineering",
-      "read": "1 min",
-      "body1": "Cold starts have long been the tax you pay for serverless. When a function hasn't run recently, the platform has to spin up a new instance, and your user waits. We decided that tax was unacceptable.",
-      "h2a": "The approach",
-      "body2": "Instead of booting a fresh runtime per request, Lavamilk keeps a pool of warm isolates at every edge location and routes incoming requests to the nearest available one. The result is a sub-millisecond startup, even for traffic that arrives in bursts.",
-      "h2b": "What it means for you",
-      "body3": "You deploy the same code you always have. There is nothing to configure. Your functions simply run faster, everywhere, all the time."
+      "tag": "Engineering"
     },
     {
-      "id": "monorepo",
       "title": "Deploying a monorepo on Lavamilk",
-      "tag": "Guides",
-      "read": "1 min",
-      "body1": "A monorepo keeps related applications and shared packages together. Before deploying one of its apps, identify the app directory, its build command, and every workspace package it imports.",
-      "h2a": "Prepare the workspace",
-      "body2": "Run the build from the repository root so workspace dependencies resolve consistently. Check that the lockfile is committed and that the selected app can build without relying on files outside the repository.",
-      "h2b": "Verify the result",
-      "body3": "Deploy a small change to the selected app and confirm that its output is the one served. If several apps share a package, rebuild each affected app before publishing."
+      "tag": "Guides"
     },
     {
-      "id": "edge-rendering",
       "title": "What edge rendering means for your app",
-      "tag": "Product",
-      "read": "1 min",
-      "body1": "Edge rendering runs part of a page request closer to the visitor. It can reduce network distance, but the result depends on where data lives and how much work each request performs.",
-      "h2a": "Choose what to render",
-      "body2": "Public content that changes rarely is often better served from a cache. Personalized content may need a request to your application or data source, so measure the full response time rather than the rendering step alone.",
-      "h2b": "Measure the experience",
-      "body3": "Compare real user timings across locations and connection types. Keep an eye on cache misses, data requests, and page size before deciding whether edge rendering improves the experience."
+      "tag": "Product"
     }
   ],
   "roles": [
